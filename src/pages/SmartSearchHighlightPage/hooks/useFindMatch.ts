@@ -1,9 +1,9 @@
 const nonAlphaNumericRegExp: RegExp = /[^a-zA-Z0-9]/g;
 
-export default function useFindMatch(
+export default function useFindMatches(
   searchValue: string,
   data: string[] | null
-): string | null {
+): string[] | null {
   if (!data || data.length === 0 || !searchValue) {
     return null;
   }
@@ -21,10 +21,12 @@ export default function useFindMatch(
     normalized: value.replace(nonAlphaNumericRegExp, "").toLowerCase(),
   }));
 
-  const match =
-    normalizedData.find((item) =>
-      item.normalized.includes(normalizedSearchValue)
-    ) ?? null;
+  const matches = normalizedData.reduce<string[]>((acc, item) => {
+    if (item.normalized.includes(normalizedSearchValue)) {
+      acc.push(item.original);
+    }
+    return acc;
+  }, []);
 
-  return match ? match.original : null;
+  return matches.length ? matches : null;
 }

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useStore } from "../../store/useStore";
 import DOMPurify from "dompurify";
-import useFindMatch from "./hooks/useFindMatch";
-import useHighlightSearchMatch from "./hooks/useHighlightSearchMatch";
+import useFindMatches from "./hooks/useFindMatch";
+import useHighlightSearchMatches from "./hooks/useHighlightSearchMatches";
 
 export const SmartSearchHighlightPage: React.FC = () => {
   const contractNumbers = useStore().smartSearchHighlightState.contractNumbers;
@@ -14,11 +14,15 @@ export const SmartSearchHighlightPage: React.FC = () => {
     setSearchValue(sanitizeSearchValue);
     console.log(searchValue);
   }
-  // make several possible
-  const foundMatch: string | null = useFindMatch(searchValue, contractNumbers);
-  const highlightedMatch: string | null = useHighlightSearchMatch(
+
+  const foundMatches: string[] | null = useFindMatches(
     searchValue,
-    foundMatch
+    contractNumbers
+  );
+
+  const matchesWithHighlight: string[] | null = useHighlightSearchMatches(
+    searchValue,
+    foundMatches
   );
 
   return (
@@ -38,7 +42,16 @@ export const SmartSearchHighlightPage: React.FC = () => {
             onChange={updateSearchValue}
           ></Input>
         </Container>
-        <p>{highlightedMatch}</p>
+        {matchesWithHighlight ? (
+          matchesWithHighlight.map((match) => (
+            <HighlightedMatch
+              dangerouslySetInnerHTML={{ __html: match }}
+            ></HighlightedMatch>
+          ))
+        ) : (
+          <p>no match found</p>
+        )}
+
         <p>
           <strong>assume this is your contract number db:</strong>
         </p>
@@ -51,8 +64,9 @@ export const SmartSearchHighlightPage: React.FC = () => {
 };
 
 const Container = styled.div`
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
+  padding: 20px;
 `;
 
 const Title = styled.h1`
@@ -66,4 +80,11 @@ const Description = styled.p`
 const Input = styled.input`
   padding: 1em;
   margin-bottom: 1.2em;
+`;
+
+const HighlightedMatch = styled.p`
+  .highlight {
+    color: orange;
+    font-weight: bold;
+  }
 `;
