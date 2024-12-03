@@ -1,5 +1,10 @@
-:root {
+import { createGlobalStyle } from "styled-components";
+import { DefaultTheme } from "styled-components";
+
+export const GlobalStyles = createGlobalStyle`
+  :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 16px;
   line-height: 1.5;
   font-weight: 400;
 
@@ -18,21 +23,28 @@ a {
   color: #646cff;
   text-decoration: inherit;
 }
+
 a:hover {
   color: #535bf2;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
+  display: block;
+  width: 100%;
   min-width: 320px;
   min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  color: #6366f1
 }
 
 button {
@@ -66,3 +78,19 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+`;
+
+export const theme: DefaultTheme = {
+  colors: {
+    primary: "#6366f1",
+    secondary: "#4f46e5",
+    background: "#ffffff",
+    text: "#1f2937",
+  },
+  spacing: {
+    small: "0.5rem",
+    medium: "1rem",
+    large: "2rem",
+  },
+};
