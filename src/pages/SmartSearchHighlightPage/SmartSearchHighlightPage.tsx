@@ -28,12 +28,15 @@ export const SmartSearchHighlightPage: React.FC = () => {
   return (
     <>
       <Container>
-        <Title>search with smart highlighting</Title>
+        <Title>Search with Smart Highlighting</Title>
         <Description>
-          this simulates a search for complex contract numbers that could
-          include empty spaces or separation chars like '-', '/' or '_'. The
-          search is applied on a normalized alphanumerical version of the
-          contract number. Only the mathed consecutive parts are highlighted{" "}
+          This demonstrates a search functionality tailored for complex contract
+          or registration numbers, which may include spaces or special-character
+          separators such as '-', '/' or '.'. The search operates on a
+          normalized alphanumeric version of the contract number, making the
+          search easier for the user, without worrying about exact formatting.
+          Matched consecutive parts of the search term are accurately
+          highlighted in the results. Try it out! Search for 'abc' and 'a-b/c'.
         </Description>
         <Container>
           <Input
