@@ -9,8 +9,8 @@ export type AppState = SmartHighlightingSearchState;
 
 export const useStore = create<AppState>()(
   devtools(
-    (...args) => ({
-      ...createSmartHighlightingSearchSlice(...args),
+    (set, get, store) => ({
+      ...createSmartHighlightingSearchSlice(set, get, store),
     }),
     {
       name: "AppStore",
@@ -18,3 +18,6 @@ export const useStore = create<AppState>()(
     }
   )
 );
+
+export const selectSmartHighlightingSearch = (state: AppState) =>
+  state.smartHighlightingSearch;

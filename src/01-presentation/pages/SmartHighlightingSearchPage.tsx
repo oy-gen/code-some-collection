@@ -1,19 +1,24 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useStore } from "../../03-data/store/useStore";
+import {
+  selectSmartHighlightingSearch,
+  useStore,
+} from "../../03-data/store/useStore";
 import DOMPurify from "dompurify";
-import { selectSmartSearchHighlight } from "../../03-data/store/smartHighlightingSearchSlice";
 import useFindSearchResultsAndHighlight from "../../02-business-logic/smart-highlighting-search/hooks/useFindResultsAndHighlight";
 import { Button } from "../components/Button";
 import { Input } from "../components/Input";
+import { useFetchContractNumbers } from "../../03-data/fetch/useFetchContractNumbers";
 
 export const SmartHighlightingSearchPage: React.FC = () => {
+  useFetchContractNumbers();
+
   const [searchValue, setSearchValue] = useState<string>("");
   const [newContractNumber, setNewContractNumber] = useState<string>("");
   useFindSearchResultsAndHighlight(searchValue);
 
   const { contractNumbers, searchResults, addContractNumber } = useStore(
-    selectSmartSearchHighlight
+    selectSmartHighlightingSearch
   );
 
   function handleAddNumber(): void {
@@ -38,11 +43,12 @@ export const SmartHighlightingSearchPage: React.FC = () => {
           such as contract or registration numbers, which may include spaces or
           special-character separators like '-', '/', or '.'. The search
           normalizes these inputs into an alphanumeric format, allowing users to
-          find results without worrying about exact formatting. As a special
-          features, the consecutive parts of the search term are precisely
-          highlighted in the results, ignoring separators. Try it out! Search
-          for <strong>'abc'</strong>, <strong>'a-b/c'</strong>, or{" "}
-          <strong>'ccc'</strong>.
+          find results without worrying about exact formatting.
+          <br></br>
+          The challenge was to precisely highlight only the consecutive parts of
+          the search, ignoring all separators. Try it out! Search for{" "}
+          <strong>'a-b/c'</strong>, <strong>'cba'</strong>, or{" "}
+          <strong>'ccc'</strong>. Or add a new number.
         </Description>
         <ResultWrapper></ResultWrapper>
         <ResultWrapper>
@@ -83,9 +89,10 @@ export const SmartHighlightingSearchPage: React.FC = () => {
             <p>
               <strong>Available contract numbers:</strong>
             </p>
-            {contractNumbers.map((item, index) => (
-              <p key={`${item}-${index}`}>{item}</p>
-            ))}
+            {contractNumbers &&
+              contractNumbers.map((item, index) => (
+                <p key={`${item}-${index}`}>{item}</p>
+              ))}
           </ResultColumn>
         </ResultWrapper>
       </Container>
