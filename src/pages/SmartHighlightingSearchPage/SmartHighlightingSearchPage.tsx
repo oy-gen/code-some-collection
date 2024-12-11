@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useStore } from "../../store/useStore";
 import DOMPurify from "dompurify";
-import { selectSmartSearchHighlight } from "../../store/smartSearchHighlightSlice";
-import useFindResultsAndHighlight from "./hooks/useFindResultsAndHighlight";
+import { selectSmartSearchHighlight } from "../../store/smartHighlightingSearchSlice";
+import useFindSearchResultsAndHighlight from "./hooks/useFindResultsAndHighlight";
 
-export const SmartSearchHighlightPage: React.FC = () => {
+export const SmartHighlightingSearchPage: React.FC = () => {
   const [searchValue, setSearchValue] = useState<string>("");
   const [newContractNumber, setNewContractNumber] = useState<string>("");
-  useFindResultsAndHighlight(searchValue);
+  useFindSearchResultsAndHighlight(searchValue);
 
   const { contractNumbers, searchResults, addContractNumber } = useStore(
     selectSmartSearchHighlight
@@ -51,7 +51,7 @@ export const SmartSearchHighlightPage: React.FC = () => {
               onChange={handleSearchValueChange}
             ></Input>
             <p>
-              <strong>Search matches:</strong>
+              <strong>Search sesult:</strong>
             </p>
             {searchResults ? (
               searchResults.map((result) => (

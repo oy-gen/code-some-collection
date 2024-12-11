@@ -1,8 +1,8 @@
 import { StateCreator } from "zustand";
 import { AppState } from "./useStore";
 
-export interface SmartSearchHighlightState {
-  smartSearchHighlight: {
+export interface SmartHighlightingSearchState {
+  smartHighlightingSearch: {
     contractNumbers: string[];
     searchResults: string[] | null;
     addContractNumber: (newNumber: string) => void;
@@ -10,25 +10,25 @@ export interface SmartSearchHighlightState {
   };
 }
 
-export const createSmartSearchHighlightSlice: StateCreator<
+export const createSmartHighlightingSearchSlice: StateCreator<
   AppState,
   [],
   [],
-  SmartSearchHighlightState
+  SmartHighlightingSearchState
 > = (set, get, _store) => ({
-  smartSearchHighlight: {
+  smartHighlightingSearch: {
     contractNumbers: contractNumbersInitialState,
     searchResults: null,
     addContractNumber: (newNumber: string) => {
-      const contractNumbers = get().smartSearchHighlight.contractNumbers;
+      const contractNumbers = get().smartHighlightingSearch.contractNumbers;
       if (newNumber.trim() === "") return;
       if (!contractNumbers.includes(newNumber)) {
         set((state) => ({
-          smartSearchHighlight: {
-            ...state.smartSearchHighlight,
+          smartHighlightingSearch: {
+            ...state.smartHighlightingSearch,
             contractNumbers: [
               newNumber,
-              ...state.smartSearchHighlight.contractNumbers,
+              ...state.smartHighlightingSearch.contractNumbers,
             ],
           },
         }));
@@ -36,8 +36,8 @@ export const createSmartSearchHighlightSlice: StateCreator<
     },
     setSearchResults: (matches: string[] | null) => {
       set((state) => ({
-        smartSearchHighlight: {
-          ...state.smartSearchHighlight,
+        smartHighlightingSearch: {
+          ...state.smartHighlightingSearch,
           searchResults: matches,
         },
       }));
@@ -46,7 +46,7 @@ export const createSmartSearchHighlightSlice: StateCreator<
 });
 
 export const selectSmartSearchHighlight = (state: AppState) =>
-  state.smartSearchHighlight;
+  state.smartHighlightingSearch;
 
 const contractNumbersInitialState: string[] = [
   "12C-bB3-3_cC",

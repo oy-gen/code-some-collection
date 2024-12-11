@@ -7,7 +7,7 @@ export const Navigation: React.FC = () => {
     <LayoutWrapper>
       <NavList>
         <li>
-          <NavLink to="/">SmartSearchHighlightPage</NavLink>
+          <NavLink to="/">SmartHighlightingSearch</NavLink>
         </li>
         <li>
           <NavLink to="/other">Other</NavLink>
