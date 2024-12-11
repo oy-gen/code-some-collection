@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
-import { selectSmartSearchHighlight } from "../../../store/smartHighlightingSearchSlice";
-import { useStore } from "../../../store/useStore";
+import { selectSmartSearchHighlight } from "../../../03-data/store/smartHighlightingSearchSlice";
+import { useStore } from "../../../03-data/store/useStore";
 import { highlightSearchResultsRule } from "../rules/highlightSearchResultsRule";
 import { findSearchResultsRule } from "../rules/findSearchResultsRule copy";
 

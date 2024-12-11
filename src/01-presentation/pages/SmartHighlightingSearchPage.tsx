@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useStore } from "../../store/useStore";
+import { useStore } from "../../03-data/store/useStore";
 import DOMPurify from "dompurify";
-import { selectSmartSearchHighlight } from "../../store/smartHighlightingSearchSlice";
-import useFindSearchResultsAndHighlight from "./hooks/useFindResultsAndHighlight";
+import { selectSmartSearchHighlight } from "../../03-data/store/smartHighlightingSearchSlice";
+import useFindSearchResultsAndHighlight from "../../02-business-logic/smart-highlighting-search/hooks/useFindResultsAndHighlight";
 
 export const SmartHighlightingSearchPage: React.FC = () => {
   const [searchValue, setSearchValue] = useState<string>("");
