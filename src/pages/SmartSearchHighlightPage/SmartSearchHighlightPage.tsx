@@ -2,28 +2,30 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useStore } from "../../store/useStore";
 import DOMPurify from "dompurify";
-import useFindMatches from "./hooks/useFindMatch";
-import useHighlightSearchMatches from "./hooks/useHighlightSearchMatches";
+import { selectSmartSearchHighlight } from "../../store/smartSearchHighlightSlice";
+import useFindResultsAndHighlight from "./hooks/useFindResultsAndHighlight";
 
 export const SmartSearchHighlightPage: React.FC = () => {
-  const contractNumbers = useStore().smartSearchHighlightState.contractNumbers;
   const [searchValue, setSearchValue] = useState<string>("");
+  const [newContractNumber, setNewContractNumber] = useState<string>("");
+  useFindResultsAndHighlight(searchValue);
 
-  function updateSearchValue(event: React.ChangeEvent<HTMLInputElement>): void {
-    const sanitizeSearchValue = DOMPurify.sanitize(event.target.value);
-    setSearchValue(sanitizeSearchValue);
-    console.log(searchValue);
+  const { contractNumbers, searchResults, addContractNumber } = useStore(
+    selectSmartSearchHighlight
+  );
+
+  function handleAddNumber(): void {
+    const sanitizedValue = DOMPurify.sanitize(newContractNumber);
+    addContractNumber(sanitizedValue);
+    setNewContractNumber("");
   }
 
-  const foundMatches: string[] | null = useFindMatches(
-    searchValue,
-    contractNumbers
-  );
-
-  const matchesWithHighlight: string[] | null = useHighlightSearchMatches(
-    searchValue,
-    foundMatches
-  );
+  function handleSearchValueChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    const sanitizedValue = DOMPurify.sanitize(event.target.value);
+    setSearchValue(sanitizedValue);
+  }
 
   return (
     <>
@@ -36,38 +38,54 @@ export const SmartSearchHighlightPage: React.FC = () => {
           normalized alphanumeric version of the contract number, making the
           search easier for the user, without worrying about exact formatting.
           Matched consecutive parts of the search term are accurately
-          highlighted in the results. Try it out! Search for 'abc' and 'a-b/c'.
+          highlighted in the results. Try it out! Search for{" "}
+          <strong>'abc'</strong>, <strong>'a-b/c'</strong> or{" "}
+          <strong>'ccc'</strong>.
         </Description>
-        <Container>
-          <Input
-            placeholder="search something"
-            value={searchValue}
-            onChange={updateSearchValue}
-          ></Input>
-        </Container>
-        {matchesWithHighlight ? (
-          matchesWithHighlight.map((match) => (
-            <HighlightedMatch
-              dangerouslySetInnerHTML={{ __html: match }}
-            ></HighlightedMatch>
-          ))
-        ) : (
-          <p>no match found</p>
-        )}
-
-        <p>
-          <strong>assume this is your contract number db:</strong>
-        </p>
-        {contractNumbers.map((item, index) => (
-          <p key={`${item}-${index}`}>{item}</p>
-        ))}
+        <ResultWrapper></ResultWrapper>
+        <ResultWrapper>
+          <ResultColumn>
+            <Input
+              placeholder="search numbers"
+              value={searchValue}
+              onChange={handleSearchValueChange}
+            ></Input>
+            <p>
+              <strong>Search matches:</strong>
+            </p>
+            {searchResults ? (
+              searchResults.map((result) => (
+                <HighlightedMatch
+                  key={result}
+                  dangerouslySetInnerHTML={{ __html: result }}
+                ></HighlightedMatch>
+              ))
+            ) : (
+              <p>no match found</p>
+            )}
+          </ResultColumn>
+          <ResultColumn>
+            <Input
+              placeholder="add numbers"
+              value={newContractNumber}
+              onChange={(event) => setNewContractNumber(event.target.value)}
+            ></Input>
+            <button onClick={() => handleAddNumber()}>add</button>
+            <p>
+              <strong>Available contract numbers:</strong>
+            </p>
+            {contractNumbers.map((item, index) => (
+              <p key={`${item}-${index}`}>{item}</p>
+            ))}
+          </ResultColumn>
+        </ResultWrapper>
       </Container>
     </>
   );
 };
 
 const Container = styled.div`
-  max-width: 1000px;
+  max-width: 800px;
   margin: 0 auto;
   padding: 20px;
 `;
@@ -82,7 +100,7 @@ const Description = styled.p`
 
 const Input = styled.input`
   padding: 1em;
-  margin-bottom: 1.2em;
+  margin-bottom: 1em;
 `;
 
 const HighlightedMatch = styled.p`
@@ -90,4 +108,15 @@ const HighlightedMatch = styled.p`
     color: orange;
     font-weight: bold;
   }
+`;
+
+const ResultWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  gap: 3rem;
+`;
+
+const ResultColumn = styled.div`
+  width: 50%;
+  flex-wrap: nowrap;
 `;
