@@ -7,6 +7,7 @@ export interface SmartHighlightingSearchState {
     searchResults: string[] | null;
     addContractNumber: (newNumber: string) => void;
     setSearchResults: (matches: string[] | null) => void;
+    initializeContractNumbers: (contractNumbers: string[]) => void;
   };
 }
 
@@ -39,6 +40,15 @@ export const createSmartHighlightingSearchSlice: StateCreator<
         smartHighlightingSearch: {
           ...state.smartHighlightingSearch,
           searchResults: matches,
+        },
+      }));
+    },
+    initializeContractNumbers: (contractNumbers: string[]) => {
+      set((state) => ({
+        ...state,
+        smartHighlightingSearch: {
+          ...state.smartHighlightingSearch,
+          contractNumbers,
         },
       }));
     },

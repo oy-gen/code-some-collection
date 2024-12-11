@@ -10,10 +10,9 @@ export const Navigation: React.FC = () => {
           <NavLink to="/">SmartHighlightingSearch</NavLink>
         </li>
         <li>
-          <NavLink to="/other">Other</NavLink>
+          <NavLink to="/">Coming Soon</NavLink>
         </li>
       </NavList>
-
       <Main>
         <Outlet />
       </Main>
@@ -31,14 +30,14 @@ const LayoutWrapper = styled.div`
 const Main = styled.main`
   flex: 1;
   margin: auto;
-  padding: 1em 0;
+  padding: 1rem 0;
 `;
 
 const NavList = styled.ul`
-  background-color: ${({ theme }) => theme.colors.primary};
-  padding: 2em;
+  background-color: var(--accent-background-color);
+  padding: 2rem;
   display: flex;
-  gap: 2em;
+  gap: 2rem;
   list-style: none;
 `;
 
@@ -47,8 +46,6 @@ const NavLink = styled(Link)`
   text-decoration: none;
 
   &:hover {
-    color: white;
-    opacity: 0.7;
     text-decoration: underline;
   }
 `;

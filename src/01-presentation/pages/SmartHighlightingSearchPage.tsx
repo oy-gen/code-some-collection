@@ -4,6 +4,8 @@ import { useStore } from "../../03-data/store/useStore";
 import DOMPurify from "dompurify";
 import { selectSmartSearchHighlight } from "../../03-data/store/smartHighlightingSearchSlice";
 import useFindSearchResultsAndHighlight from "../../02-business-logic/smart-highlighting-search/hooks/useFindResultsAndHighlight";
+import { Button } from "../components/Button";
+import { Input } from "../components/Input";
 
 export const SmartHighlightingSearchPage: React.FC = () => {
   const [searchValue, setSearchValue] = useState<string>("");
@@ -32,24 +34,26 @@ export const SmartHighlightingSearchPage: React.FC = () => {
       <Container>
         <Title>Search with Smart Highlighting</Title>
         <Description>
-          This demonstrates a search functionality tailored for complex contract
-          or registration numbers, which may include spaces or special-character
-          separators such as '-', '/' or '.'. The search operates on a
-          normalized alphanumeric version of the contract number, making the
-          search easier for the user, without worrying about exact formatting.
-          Matched consecutive parts of the search term are accurately
-          highlighted in the results. Try it out! Search for{" "}
-          <strong>'abc'</strong>, <strong>'a-b/c'</strong> or{" "}
+          A user-friendly search functionality designed for complex strings,
+          such as contract or registration numbers, which may include spaces or
+          special-character separators like '-', '/', or '.'. The search
+          normalizes these inputs into an alphanumeric format, allowing users to
+          find results without worrying about exact formatting. As a special
+          features, the consecutive parts of the search term are precisely
+          highlighted in the results, ignoring separators. Try it out! Search
+          for <strong>'abc'</strong>, <strong>'a-b/c'</strong>, or{" "}
           <strong>'ccc'</strong>.
         </Description>
         <ResultWrapper></ResultWrapper>
         <ResultWrapper>
           <ResultColumn>
-            <Input
-              placeholder="search numbers"
-              value={searchValue}
-              onChange={handleSearchValueChange}
-            ></Input>
+            <Row>
+              <Input
+                placeholder="search numbers"
+                value={searchValue}
+                onChange={handleSearchValueChange}
+              ></Input>
+            </Row>
             <p>
               <strong>Search sesult:</strong>
             </p>
@@ -65,12 +69,17 @@ export const SmartHighlightingSearchPage: React.FC = () => {
             )}
           </ResultColumn>
           <ResultColumn>
-            <Input
-              placeholder="add numbers"
-              value={newContractNumber}
-              onChange={(event) => setNewContractNumber(event.target.value)}
-            ></Input>
-            <button onClick={() => handleAddNumber()}>add</button>
+            <Row>
+              <Input
+                placeholder="add numbers"
+                value={newContractNumber}
+                onChange={(event) => setNewContractNumber(event.target.value)}
+              ></Input>
+              <Button
+                buttonText="add"
+                onClick={() => handleAddNumber()}
+              ></Button>
+            </Row>
             <p>
               <strong>Available contract numbers:</strong>
             </p>
@@ -91,16 +100,11 @@ const Container = styled.div`
 `;
 
 const Title = styled.h1`
-  margin-bottom: 2rem;
-`;
-
-const Description = styled.p`
   margin-bottom: 1rem;
 `;
 
-const Input = styled.input`
-  padding: 1em;
-  margin-bottom: 1em;
+const Description = styled.p`
+  margin-bottom: 2rem;
 `;
 
 const HighlightedMatch = styled.p`
@@ -116,7 +120,11 @@ const ResultWrapper = styled.div`
   gap: 3rem;
 `;
 
+const Row = styled.div`
+  display: flex;
+  margin-bottom: 2rem;
+`;
+
 const ResultColumn = styled.div`
   width: 50%;
-  flex-wrap: nowrap;
 `;
