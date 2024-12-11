@@ -1,21 +1,23 @@
 import { StateCreator } from "zustand";
 import { AppState } from "./useStore";
 
+export interface SmartHighlightingSearchStateAware {
+  smartHighlightingSearch: SmartHighlightingSearchState;
+}
+
 export interface SmartHighlightingSearchState {
-  smartHighlightingSearch: {
-    contractNumbers: string[] | null;
-    searchResults: string[] | null;
-    addContractNumber: (newNumber: string) => void;
-    setSearchResults: (matches: string[] | null) => void;
-    initializeContractNumbers: (contractNumbers: string[]) => void;
-  };
+  contractNumbers: string[] | null;
+  searchResults: string[] | null;
+  addContractNumber: (newNumber: string) => void;
+  setSearchResults: (matches: string[] | null) => void;
+  initializeContractNumbers: (contractNumbers: string[]) => void;
 }
 
 export const createSmartHighlightingSearchSlice: StateCreator<
   AppState,
   [],
   [],
-  SmartHighlightingSearchState
+  SmartHighlightingSearchStateAware
 > = (set, get, _store) => ({
   smartHighlightingSearch: {
     contractNumbers: null,
