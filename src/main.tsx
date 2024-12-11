@@ -2,22 +2,18 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { SmartSearchHighlightPage } from "./pages/SmartSearchHighlightPage/SmartSearchHighlightPage";
-import { ThemeProvider } from "styled-components";
-import { GlobalStyles, theme } from "./styles/GlobalStyles";
-import { Navigation } from "./components/Navigation";
+import { SmartHighlightingSearchPage } from "./01-presentation/pages/SmartHighlightingSearchPage";
+import { Navigation } from "./01-presentation/components/Navigation";
+import "./main.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ThemeProvider theme={theme}>
-      <GlobalStyles />
-      <BrowserRouter>
-        <Routes>
-          <Route element={<Navigation />}>
-            <Route path="" element={<SmartSearchHighlightPage />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </ThemeProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Navigation />}>
+          <Route path="" element={<SmartHighlightingSearchPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   </StrictMode>
 );

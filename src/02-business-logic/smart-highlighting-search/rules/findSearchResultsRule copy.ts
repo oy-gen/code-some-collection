@@ -1,12 +1,11 @@
-const nonAlphaNumericRegExp: RegExp = /[^a-zA-Z0-9]/g;
-
-export default function useFindMatches(
+export const findSearchResultsRule = (
   searchValue: string,
   data: string[] | null
-): string[] | null {
+): string[] | null => {
   if (!data || data.length === 0 || !searchValue) {
     return null;
   }
+  const nonAlphaNumericRegExp: RegExp = /[^a-zA-Z0-9]/g;
 
   const normalizedSearchValue = searchValue
     .replace(nonAlphaNumericRegExp, "")
@@ -27,6 +26,5 @@ export default function useFindMatches(
     }
     return acc;
   }, []);
-
-  return matches.length ? matches : null;
-}
+  return matches;
+};

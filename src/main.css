@@ -1,0 +1,45 @@
+:root {
+  --accent-background-color: #6366f1;
+  --accent-font-color: #6366f1;
+  --text-color: rgb(36, 36, 36);
+
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--text-color);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: var(--accent-font-color);
+  text-decoration: inherit;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+body {
+  display: block;
+  width: 100%;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+  color: var(--accent-font-color);
+}
