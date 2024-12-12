@@ -7,7 +7,7 @@ import {
 import {
   createPlaceholderSlice,
   PlaceholderStateAware,
-} from "./placeholderSlice copy.ts";
+} from "./placeholderSlice.ts";
 
 export type AppState = SmartHighlightingSearchStateAware &
   PlaceholderStateAware;
