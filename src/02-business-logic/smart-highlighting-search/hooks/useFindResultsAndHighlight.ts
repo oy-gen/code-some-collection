@@ -4,7 +4,7 @@ import {
   useStore,
 } from "../../../03-data/store/useStore";
 import { highlightSearchResultsRule } from "../rules/highlightSearchResultsRule";
-import { findSearchResultsRule } from "../rules/findSearchResultsRule copy";
+import { findSearchResultsRule } from "../rules/findSearchResultsRule";
 
 export default function useFindSearchResultsAndHighlight(
   searchValue: string
