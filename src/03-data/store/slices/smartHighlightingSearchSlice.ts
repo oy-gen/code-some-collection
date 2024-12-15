@@ -1,5 +1,5 @@
 import { StateCreator } from "zustand";
-import { AppState } from "./useStore";
+import { AppState } from "../useStore";
 
 export interface SmartHighlightingSearchStateAware {
   smartHighlightingSearch: SmartHighlightingSearchState;

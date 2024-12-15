@@ -1,14 +1,14 @@
 import {
-  balanceScaleRule,
+  BalanceScaleState,
   ScalesAndWeights,
-  BalancedScale,
-} from "./balanceScaleRule";
+} from "../../../03-data/store/slices/balanceScaleSlice";
+import { balanceScaleRule } from "./balanceScaleRule";
 
 describe("balanceScaleRule", () => {
   const testCases: {
     itShould: string;
     input: ScalesAndWeights;
-    expected: BalancedScale | null;
+    expected: Partial<BalanceScaleState> | null;
   }[] = [
     {
       itShould: "find balanced scales with one weight added to both sides",

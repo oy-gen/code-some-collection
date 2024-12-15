@@ -1,19 +1,17 @@
-export interface ScalesAndWeights {
-  leftScale: number;
-  rightScale: number;
-  weights: number[];
-}
-
-export interface BalancedScale {
-  leftScale: number;
-  rightScale: number;
-  leftWeightsAdded: number[];
-  rightWeightsAdded: number[];
-}
+import {
+  BalanceScaleState,
+  ScalesAndWeights,
+} from "../../../03-data/store/slices/balanceScaleSlice";
 
 export function balanceScaleRule(
   scalesAndWeights: ScalesAndWeights
-): BalancedScale | null {
+): Partial<BalanceScaleState> | null {
+  if (
+    scalesAndWeights.leftScale === null ||
+    scalesAndWeights.rightScale === null
+  ) {
+    return null;
+  }
   if (scalesAndWeights.leftScale === scalesAndWeights.rightScale) {
     return {
       leftScale: scalesAndWeights.leftScale,

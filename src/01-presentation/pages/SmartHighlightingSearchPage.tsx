@@ -6,9 +6,11 @@ import {
 } from "../../03-data/store/useStore";
 import DOMPurify from "dompurify";
 import useFindSearchResultsAndHighlight from "../../02-business-logic/smart-highlighting-search/hooks/useFindResultsAndHighlight";
-import { Button } from "../components/Button";
-import { Input } from "../components/Input";
 import { useFetchContractNumbers } from "../../03-data/fetch/useFetchContractNumbers";
+import { StyledContentContainer } from "../components/shared/StyledContentContainer";
+import { StyledDescription } from "../components/shared/SyledDescription";
+import { StyledInputField } from "../components/shared/StyledInputField";
+import { StyledButton } from "../components/shared/SyledButton";
 
 export const SmartHighlightingSearchPage: React.FC = () => {
   useFetchContractNumbers();
@@ -36,9 +38,9 @@ export const SmartHighlightingSearchPage: React.FC = () => {
 
   return (
     <>
-      <Container>
+      <StyledContentContainer>
         <h1>Search with Smart Highlighting</h1>
-        <Description>
+        <StyledDescription>
           A user-friendly search functionality designed for complex strings,
           such as contract or registration numbers, which may include spaces or
           special-character separators like '-', '/', or '.'. The search
@@ -49,16 +51,16 @@ export const SmartHighlightingSearchPage: React.FC = () => {
           the search, ignoring all separators. Try it out! Search for{" "}
           <strong>'a-b/c'</strong>, <strong>'cba'</strong>, or{" "}
           <strong>'ccc'</strong>. Or add a new number.
-        </Description>
+        </StyledDescription>
         <ResultWrapper></ResultWrapper>
         <ResultWrapper>
           <ResultColumn>
             <Row>
-              <Input
+              <StyledInputField
                 placeholder="search numbers"
                 value={searchValue}
                 onChange={handleSearchValueChange}
-              ></Input>
+              ></StyledInputField>
             </Row>
             <p>
               <strong>Search sesult:</strong>
@@ -76,15 +78,12 @@ export const SmartHighlightingSearchPage: React.FC = () => {
           </ResultColumn>
           <ResultColumn>
             <Row>
-              <Input
+              <StyledInputField
                 placeholder="add numbers"
                 value={newContractNumber}
                 onChange={(event) => setNewContractNumber(event.target.value)}
-              ></Input>
-              <Button
-                buttonText="add"
-                onClick={() => handleAddNumber()}
-              ></Button>
+              ></StyledInputField>
+              <StyledButton onClick={() => handleAddNumber()}>add</StyledButton>
             </Row>
             <p>
               <strong>Available contract numbers:</strong>
@@ -95,20 +94,10 @@ export const SmartHighlightingSearchPage: React.FC = () => {
               ))}
           </ResultColumn>
         </ResultWrapper>
-      </Container>
+      </StyledContentContainer>
     </>
   );
 };
-
-const Container = styled.div`
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-`;
-
-const Description = styled.p`
-  margin-bottom: 2rem;
-`;
 
 const HighlightedMatch = styled.p`
   .highlight {

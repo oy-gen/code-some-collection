@@ -3,20 +3,20 @@ import { devtools } from "zustand/middleware";
 import {
   createSmartHighlightingSearchSlice,
   SmartHighlightingSearchStateAware,
-} from "./smartHighlightingSearchSlice.ts";
+} from "./slices/smartHighlightingSearchSlice.ts";
 import {
-  createPlaceholderSlice,
-  PlaceholderStateAware,
-} from "./placeholderSlice.ts";
+  createBalanceScaleSlice,
+  BalanceScaleStateAware,
+} from "./slices/balanceScaleSlice.ts";
 
 export type AppState = SmartHighlightingSearchStateAware &
-  PlaceholderStateAware;
+  BalanceScaleStateAware;
 
 export const useStore = create<AppState>()(
   devtools(
     (set, get, store) => ({
       ...createSmartHighlightingSearchSlice(set, get, store),
-      ...createPlaceholderSlice(set, get, store),
+      ...createBalanceScaleSlice(set, get, store),
     }),
     {
       name: "AppStore",
@@ -27,3 +27,4 @@ export const useStore = create<AppState>()(
 
 export const selectSmartHighlightingSearch = (state: AppState) =>
   state.smartHighlightingSearch;
+export const selectBalanceScale = (state: AppState) => state.balanceScale;

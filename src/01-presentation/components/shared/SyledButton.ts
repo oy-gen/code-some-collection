@@ -1,16 +1,6 @@
-import React from "react";
 import styled from "styled-components";
 
-type Props = {
-  buttonText: string;
-  onClick: () => void;
-};
-
-export const Button: React.FC<Props> = ({ buttonText, onClick }) => {
-  return <StyledButton onClick={onClick}>{buttonText}</StyledButton>;
-};
-
-const StyledButton = styled.button`
+export const StyledButton = styled.button`
   font-size: 1rem;
   padding: 1rem;
   font-weight: bold;
@@ -22,5 +12,9 @@ const StyledButton = styled.button`
 
   &:hover {
     background-color: #8086f9;
+  }
+
+  &:disabled {
+    filter: grayscale();
   }
 `;
