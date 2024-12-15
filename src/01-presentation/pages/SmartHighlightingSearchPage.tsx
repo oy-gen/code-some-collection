@@ -37,7 +37,7 @@ export const SmartHighlightingSearchPage: React.FC = () => {
   return (
     <>
       <Container>
-        <Title>Search with Smart Highlighting</Title>
+        <h1>Search with Smart Highlighting</h1>
         <Description>
           A user-friendly search functionality designed for complex strings,
           such as contract or registration numbers, which may include spaces or
@@ -104,10 +104,6 @@ const Container = styled.div`
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-`;
-
-const Title = styled.h1`
-  margin-bottom: 1rem;
 `;
 
 const Description = styled.p`
