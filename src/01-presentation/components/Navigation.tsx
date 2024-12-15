@@ -10,7 +10,7 @@ export const Navigation: React.FC = () => {
           <NavLink to="/">SmartHighlightingSearch</NavLink>
         </li>
         <li>
-          <NavLink to="/">Coming Soon</NavLink>
+          <NavLink to="/balance-scale">BalanceScalePage</NavLink>
         </li>
       </NavList>
       <Main>
