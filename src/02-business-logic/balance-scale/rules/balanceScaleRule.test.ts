@@ -1,122 +1,128 @@
-import {
-  BalanceScaleState,
-  ScalesAndWeights,
-} from "../../../03-data/store/slices/balanceScaleSlice";
+import { ScaleData } from "../../../03-data/store/slices/balanceScaleSlice";
 import { balanceScaleRule } from "./balanceScaleRule";
 
 describe("balanceScaleRule", () => {
   const testCases: {
-    itShould: string;
-    input: ScalesAndWeights;
-    expected: Partial<BalanceScaleState> | null;
+    description: string;
+    input: ScaleData;
+    expected: ScaleData | null;
   }[] = [
     {
-      itShould: "find balanced scales with one weight added to both sides",
+      description: "find balanced scales with one weight added to each sides",
       input: {
-        leftScale: 1,
-        rightScale: 3,
+        leftScale: [1],
+        rightScale: [3],
         weights: [7, 14, 10, 5],
       },
       expected: {
-        leftScale: 8,
-        rightScale: 8,
-        leftWeightsAdded: [7],
-        rightWeightsAdded: [5],
+        leftScale: [1, 7],
+        rightScale: [3, 5],
+        weights: [14, 10],
       },
     },
     {
-      itShould: "find balanced scales with several weights added to both sides",
+      description: "test-more",
       input: {
-        leftScale: 1,
-        rightScale: 3,
+        leftScale: [3],
+        rightScale: [7],
+        weights: [6, 10, 7, 1, 67, 4],
+      },
+      expected: {
+        leftScale: [3, 4],
+        rightScale: [7],
+        weights: [6, 10, 7, 1, 67],
+      },
+    },
+    {
+      description:
+        "find balanced scales with several weights added to both sides",
+      input: {
+        leftScale: [1],
+        rightScale: [3],
         weights: [37, 12, 122, 5, 18, 1],
       },
       expected: {
-        leftScale: 20,
-        rightScale: 20,
-        leftWeightsAdded: [1, 18],
-        rightWeightsAdded: [5, 12],
+        leftScale: [1, 18, 1],
+        rightScale: [3, 12, 5],
+        weights: [37, 122],
       },
     },
     {
-      itShould: "balance the scale with one weight only on the left side",
+      description: "balance the scale with one weight only on the left side",
       input: {
-        leftScale: 1,
-        rightScale: 3,
+        leftScale: [1],
+        rightScale: [3],
         weights: [2, 4],
       },
       expected: {
-        leftScale: 3,
-        rightScale: 3,
-        leftWeightsAdded: [2],
-        rightWeightsAdded: [],
+        leftScale: [1, 2],
+        rightScale: [3],
+        weights: [4],
       },
     },
     {
-      itShould: "balance the with one weight only on the right side",
+      description: "balance the scale with one weight only on the right side",
       input: {
-        leftScale: 3,
-        rightScale: 1,
+        leftScale: [3],
+        rightScale: [1],
         weights: [2, 4],
       },
       expected: {
-        leftScale: 3,
-        rightScale: 3,
-        leftWeightsAdded: [],
-        rightWeightsAdded: [2],
+        leftScale: [3],
+        rightScale: [1, 2],
+        weights: [4],
       },
     },
     {
-      itShould: "balance the scale with several weights added to one side",
+      description: "balance the scale with several weights added to one side",
       input: {
-        leftScale: 1,
-        rightScale: 100,
+        leftScale: [1],
+        rightScale: [100],
         weights: [33, 45, 33, 33],
       },
       expected: {
-        leftScale: 100,
-        rightScale: 100,
-        leftWeightsAdded: [33, 33, 33],
-        rightWeightsAdded: [],
+        leftScale: [1, 33, 33, 33],
+        rightScale: [100],
+        weights: [45],
       },
     },
     {
-      itShould: "return null because there is no possible solution",
+      description: "return null because there is no possible solution",
       input: {
-        leftScale: 1,
-        rightScale: 3,
+        leftScale: [1],
+        rightScale: [3],
         weights: [1, 4],
       },
       expected: null,
     },
     {
-      itShould:
-        "return null because no weights were provided and cale is not in balance",
+      description:
+        "return null because no weights were provided and scale is not in balance",
       input: {
-        leftScale: 1,
-        rightScale: 3,
+        leftScale: [1],
+        rightScale: [3],
         weights: [],
       },
       expected: null,
     },
     {
-      itShould: "return initial scale values without anything added",
+      description: "return initial scale values without anything added",
       input: {
-        leftScale: 10,
-        rightScale: 10,
+        leftScale: [10],
+        rightScale: [10],
         weights: [4, 688],
       },
       expected: {
-        leftScale: 10,
-        rightScale: 10,
-        leftWeightsAdded: [],
-        rightWeightsAdded: [],
+        leftScale: [10],
+        rightScale: [10],
+        weights: [4, 688],
       },
     },
   ];
+
   testCases.forEach((testCase) => {
-    const { itShould: name, input, expected } = testCase;
-    it(name, () => {
+    const { description, input, expected } = testCase;
+    it(description, () => {
       const result = balanceScaleRule(input);
       expect(result).toEqual(expected);
     });
