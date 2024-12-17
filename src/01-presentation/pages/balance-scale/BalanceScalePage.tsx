@@ -1,28 +1,25 @@
-import { Weight } from "../components/Weight";
-import { selectBalanceScale, useStore } from "../../03-data/store/useStore";
+import { Weight } from "./components/Weight.tsx";
+import {
+  selectBalanceScale,
+  useStore,
+} from "../../../03-data/store/useStore.ts";
 import styled from "styled-components";
-import { StyledContentContainer } from "../components/shared/StyledContentContainer";
-import { StyledDescription } from "../components/shared/SyledDescription";
+import { StyledContentContainer } from "../../components/shared/StyledContentContainer.ts";
+import { StyledDescription } from "../../components/shared/SyledDescription.ts";
 import { useEffect, useState } from "react";
-import { StyledInputField } from "../components/shared/StyledInputField";
-import { StyledButton } from "../components/shared/SyledButton";
-import balanceScale from "../../02-business-logic/balance-scale/hooks/useBalanceScale";
-import useBalanceScale from "../../02-business-logic/balance-scale/hooks/useBalanceScale";
+import { StyledInputField } from "../../components/shared/StyledInputField.ts";
+import { StyledButton } from "../../components/shared/SyledButton.ts";
+import { balanceScaleRule } from "../../../02-business-logic/balance-scale/rules/balanceScaleRule.ts";
+import { Error } from "./components/Error.tsx";
+import { ScaleData } from "../../../03-data/store/slices/balanceScaleSlice.ts";
+import { StyledFlexRow } from "../../components/shared/SyledFlexRow.ts";
 
-export const BalanceScalesPage: React.FC = () => {
-  const {
-    leftScale,
-    rightScale,
-    weights,
-    addWeight,
-    leftWeightsAdded,
-    rightWeightsAdded,
-  } = useStore(selectBalanceScale);
+export const BalanceScalePage: React.FC = () => {
+  const { leftScale, rightScale, weights, addWeightToStock, setBalancedScale } =
+    useStore(selectBalanceScale);
 
   const [weightToAdd, setWeightToAdd] = useState<string | null>(null);
   const [error, setError] = useState<string>("");
-
-  useBalanceScale();
 
   useEffect(() => {
     if (error !== "") {
@@ -44,30 +41,56 @@ export const BalanceScalesPage: React.FC = () => {
       setError(`too many weights`);
       return;
     }
-    addWeight(integerWeight);
+    addWeightToStock(integerWeight);
   }
 
-  function calculateBalance() {
-    balanceScale();
+  function balanceScale() {
+    const balancedResult: ScaleData | null = balanceScaleRule({
+      leftScale,
+      rightScale,
+      weights,
+    });
+    if (!balancedResult) {
+      setError("no solution possible");
+      return;
+    }
+    setBalancedScale(balancedResult);
   }
 
   return (
     <StyledContentContainer>
-      <h1>Scale balancing</h1>
+      <h1>Scale Balancing</h1>
       <StyledDescription>
         placeholder text user-friendly search functionality designed for complex
         strings, such as contract or registration numbers, which may include
         spaces or special-character separators like.
       </StyledDescription>
+      <StyledFlexRow>
+        <StyledButton
+          onClick={(): void => {
+            balanceScale();
+          }}
+        >
+          calculate
+        </StyledButton>
+      </StyledFlexRow>
       <StyledScale>
         <StyledScaleSide>
-          <Weight weight={leftScale ?? 0}></Weight>
+          {leftScale.map((weight, index) => {
+            return (
+              <Weight key={`${weight}-${index}-left`} weight={weight}></Weight>
+            );
+          })}
         </StyledScaleSide>
         <StyledScaleSide>
-          <Weight weight={rightScale ?? 0}></Weight>
+          {rightScale.map((weight, index) => {
+            return (
+              <Weight key={`${weight}-${index}-right`} weight={weight}></Weight>
+            );
+          })}
         </StyledScaleSide>
-        <StyledScaleBase></StyledScaleBase>
       </StyledScale>
+      <StyledScaleBase></StyledScaleBase>
       <StyledWeightsContainer>
         {weights.map((weight, index) => {
           return (
@@ -93,16 +116,8 @@ export const BalanceScalesPage: React.FC = () => {
         >
           add weight
         </StyledButton>
-        {error && <StyledError>{error}</StyledError>}
+        <Error>{error}</Error>
       </StyledInputWrapper>
-      <StyledButton
-        onClick={(): void => {
-          calculateBalance();
-        }}
-      >
-        calculate
-      </StyledButton>
-      {rightWeightsAdded} {leftWeightsAdded}
     </StyledContentContainer>
   );
 };
@@ -120,8 +135,10 @@ const StyledScaleSide = styled.div`
   display: flex;
   justify-content: center;
   flex-grow: 1;
-  gap: 1rem;
+  gap: 5px;
   padding: 1rem;
+  flex-wrap: wrap;
+
   border-bottom: 8px solid black;
 `;
 
@@ -139,11 +156,8 @@ const StyledInputWrapper = styled.div`
 
 const StyledWeightsContainer = styled.div`
   display: flex;
+  justify-content: center;
   gap: 1rem;
   padding: 1rem;
   border: 1 px solid green;
-`;
-const StyledError = styled.p`
-  color: red;
-  font-weight: bold;
 `;

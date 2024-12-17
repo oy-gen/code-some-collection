@@ -5,22 +5,24 @@ export interface BalanceScaleStateAware {
   balanceScale: BalanceScaleState;
 }
 
-export interface BalanceScaleState extends ScalesAndWeights {
-  leftWeightsAdded: number[];
-  rightWeightsAdded: number[];
-  addWeight: (weight: number) => void;
-  removeWeight: (weight: number) => void;
-  applyBalanceCalculation: (
-    leftWeightsAdded: number[],
-    rightWeightsAdded: number[]
-  ) => void;
+export interface BalanceScaleState extends ScaleData {
+  addWeightToStock: (weight: number) => void;
+  removeWeightFromStock: (weight: number) => void;
+  setBalancedScale: (scaleData: ScaleData) => void;
+  resetScale: () => void;
 }
 
-export interface ScalesAndWeights {
-  leftScale: number | null;
-  rightScale: number | null;
+export interface ScaleData {
+  leftScale: number[];
+  rightScale: number[];
   weights: number[];
 }
+
+const initialState: ScaleData = {
+  leftScale: [3],
+  rightScale: [7],
+  weights: [6, 10, 7, 1, 67, 4],
+};
 
 export const createBalanceScaleSlice: StateCreator<
   AppState,
@@ -29,12 +31,8 @@ export const createBalanceScaleSlice: StateCreator<
   BalanceScaleStateAware
 > = (set, _get, _store) => ({
   balanceScale: {
-    leftScale: 3,
-    rightScale: 7,
-    weights: [6, 10, 7, 1],
-    leftWeightsAdded: [],
-    rightWeightsAdded: [],
-    addWeight: (weightToAdd: number) =>
+    ...initialState,
+    addWeightToStock: (weightToAdd: number) =>
       set((state) => ({
         balanceScale: {
           ...state.balanceScale,
@@ -43,21 +41,29 @@ export const createBalanceScaleSlice: StateCreator<
             : [...state.balanceScale.weights, weightToAdd],
         },
       })),
-    removeWeight: (weightToRemove: number) =>
+    removeWeightFromStock: (weightToRemove: number) =>
       set((state) => ({
         balanceScale: {
           ...state.balanceScale,
           weights: state.balanceScale.weights.filter(
-            (weight) => weight !== weightToRemove
+            (weight) => weight !== weightToRemove,
           ),
         },
       })),
-    applyBalanceCalculation: (leftWeights: number[], rightWeights: number[]) =>
+    setBalancedScale: (scaleData: ScaleData) =>
       set((state) => ({
         balanceScale: {
           ...state.balanceScale,
-          leftWeightsAdded: leftWeights,
-          rightWeightsAdded: rightWeights,
+          leftScale: scaleData.leftScale,
+          rightScale: scaleData.rightScale,
+          weights: scaleData.weights,
+        },
+      })),
+    resetScale: () =>
+      set((state) => ({
+        balanceScale: {
+          ...state.balanceScale,
+          ...initialState,
         },
       })),
   },

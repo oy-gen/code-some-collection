@@ -1,16 +1,19 @@
 import React from "react";
 import styled from "styled-components";
-import { selectBalanceScale, useStore } from "../../03-data/store/useStore";
+import {
+  selectBalanceScale,
+  useStore,
+} from "../../../../03-data/store/useStore.ts";
 
 type Props = {
   weight: number;
   showRemove?: boolean;
 };
 export const Weight: React.FC<Props> = ({ weight, showRemove = false }) => {
-  const { removeWeight } = useStore(selectBalanceScale);
+  const { removeWeightFromStock } = useStore(selectBalanceScale);
 
   function handleRemove(): void {
-    removeWeight(weight);
+    removeWeightFromStock(weight);
   }
 
   return (
@@ -47,7 +50,7 @@ const StyledWeight = styled.div`
   font-weight: bolder;
   text-align: center;
   padding-top: 45px;
-  background-image: url("../../../public/weight.svg");
+  background-image: url("../../../../../public/weight.svg");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;

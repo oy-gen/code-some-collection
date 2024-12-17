@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Navigation } from "./01-presentation/components/Navigation";
 import "./main.css";
 import { SmartHighlightingSearchPage } from "./01-presentation/pages/SmartHighlightingSearchPage";
-import { BalanceScalesPage } from "./01-presentation/pages/BalanceScalesPage";
+import { BalanceScalePage } from "./01-presentation/pages/balance-scale/BalanceScalePage.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -13,7 +13,7 @@ createRoot(document.getElementById("root")!).render(
       <Routes>
         <Route element={<Navigation />}>
           <Route path="" element={<SmartHighlightingSearchPage />} />
-          <Route path="/balance-scale" element={<BalanceScalesPage />} />
+          <Route path="/balance-scale" element={<BalanceScalePage />} />
         </Route>
       </Routes>
     </BrowserRouter>
