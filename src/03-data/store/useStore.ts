@@ -21,10 +21,10 @@ export const useStore = create<AppState>()(
     {
       name: "AppStore",
       enabled: true,
-    }
-  )
+    },
+  ),
 );
 
 export const selectSmartHighlightingSearch = (state: AppState) =>
   state.smartHighlightingSearch;
-export const selectBalanceScale = (state: AppState) => state.balanceScale;
+export const selectBalanceScaleSlice = (state: AppState) => state.balanceScale;

@@ -4,20 +4,20 @@ import {
 } from "../../../03-data/store/slices/balanceScaleSlice";
 
 export function balanceScaleRule(
-  leftScale: number[],
-  rightScale: number[],
+  leftScalePan: number[],
+  rightScalePan: number[],
   weights: number[],
 ): ScaleData | null {
-  const leftScaleInitialWeight: number = leftScale.reduce(
+  const leftPanInitialWeight: number = leftScalePan.reduce(
     (previous, current) => previous + current,
     0,
   );
-  const rightScaleInitialWeight: number = rightScale.reduce(
-    (acc, weight) => acc + weight,
+  const rightPanInitialWeight: number = rightScalePan.reduce(
+    (previous, current) => previous + current,
     0,
   );
 
-  if (leftScaleInitialWeight === rightScaleInitialWeight) {
+  if (leftPanInitialWeight === rightPanInitialWeight) {
     return null;
   }
 
@@ -34,8 +34,8 @@ export function balanceScaleRule(
     combinationIndex < possibleCombinationsCount;
     combinationIndex++
   ) {
-    let leftScaleSum: number = leftScaleInitialWeight;
-    let rightScaleSum: number = rightScaleInitialWeight;
+    let leftPanSum: number = leftPanInitialWeight;
+    let rightPanSum: number = rightPanInitialWeight;
     const leftWeightsAdded: number[] = [];
     const rightWeightsAdded: number[] = [];
     let placementIndex: number = combinationIndex;
@@ -58,30 +58,27 @@ export function balanceScaleRule(
       // and round down (Math.floor) to shift to the next weight in the base-3 sequence.
 
       if (placement === 1) {
-        leftScaleSum += currentWeight;
+        leftPanSum += currentWeight;
         leftWeightsAdded.push(currentWeight);
       } else if (placement === 2) {
-        rightScaleSum += currentWeight;
+        rightPanSum += currentWeight;
         rightWeightsAdded.push(currentWeight);
       }
     }
 
-    if (
-      leftScaleSum === rightScaleSum &&
-      leftScaleSum < lowestPossibleBalance
-    ) {
-      lowestPossibleBalance = leftScaleSum;
+    if (leftPanSum === rightPanSum && leftPanSum < lowestPossibleBalance) {
+      lowestPossibleBalance = leftPanSum;
       const weightsRemaining = [...weights].filter(
         (weight) =>
           ![...leftWeightsAdded, ...rightWeightsAdded].includes(weight),
       );
 
       bestResult = {
-        leftScale: [...leftScale, ...leftWeightsAdded],
-        rightScale: [...rightScale, ...rightWeightsAdded],
+        leftScalePan: [...leftScalePan, ...leftWeightsAdded],
+        rightScalePan: [...rightScalePan, ...rightWeightsAdded],
         weights: weightsRemaining,
-        leftScaleSum: leftScaleSum,
-        rightScaleSum: rightScaleSum,
+        leftScalePanSum: leftPanSum,
+        rightScalePanSum: rightPanSum,
         heavierSide: HeavierSideEnum.Equal,
       };
     }

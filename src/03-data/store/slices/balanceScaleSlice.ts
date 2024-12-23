@@ -6,22 +6,42 @@ export interface BalanceScaleStateAware {
 }
 
 export interface BalanceScaleState extends ScaleData {
+  error: string | null;
   addWeightToStock: (weight: number) => void;
   removeWeightFromStock: (weight: number) => void;
-  setBalancedScale: (scaleData: ScaleData) => void;
+  setBalance: (scaleData: ScaleData) => void;
   resetScale: () => void;
+  setError: (message: string | null) => void;
 }
 
 export interface ScaleData {
-  leftScale: number[];
-  rightScale: number[];
+  leftScalePan: number[];
+  rightScalePan: number[];
   weights: number[];
+  leftScalePanSum: number;
+  rightScalePanSum: number;
+  heavierSide: HeavierSideEnum;
 }
 
-const initialState: ScaleData = {
-  leftScale: [3],
-  rightScale: [7],
-  weights: [6, 10, 7, 1, 67, 4],
+export enum HeavierSideEnum {
+  Left = "left",
+  Right = "right",
+  Equal = "equal",
+}
+
+const initialState: BalanceScaleState = {
+  leftScalePan: [3],
+  rightScalePan: [7],
+  weights: [6, 10, 1, 4],
+  leftScalePanSum: 3,
+  rightScalePanSum: 7,
+  heavierSide: HeavierSideEnum.Right,
+  error: null,
+  addWeightToStock: () => {},
+  removeWeightFromStock: () => {},
+  resetScale: () => {},
+  setBalance: () => {},
+  setError: () => {},
 };
 
 export const createBalanceScaleSlice: StateCreator<
@@ -50,13 +70,21 @@ export const createBalanceScaleSlice: StateCreator<
           ),
         },
       })),
-    setBalancedScale: (scaleData: ScaleData) =>
+    setError: (message: string | null) =>
       set((state) => ({
         balanceScale: {
           ...state.balanceScale,
-          leftScale: scaleData.leftScale,
-          rightScale: scaleData.rightScale,
+          error: message,
+        },
+      })),
+    setBalance: (scaleData: ScaleData) =>
+      set((state) => ({
+        balanceScale: {
+          ...state.balanceScale,
+          leftScalePan: scaleData.leftScalePan,
+          rightScalePan: scaleData.rightScalePan,
           weights: scaleData.weights,
+          heavierSide: scaleData.heavierSide,
         },
       })),
     resetScale: () =>

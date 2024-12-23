@@ -15,6 +15,6 @@ export const StyledButton = styled.button`
   }
 
   &:disabled {
-    filter: grayscale();
+    filter: grayscale(100);
   }
 `;
