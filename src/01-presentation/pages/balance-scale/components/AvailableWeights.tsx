@@ -31,35 +31,33 @@ export const AvailableWeights: React.FC = () => {
   };
 
   return (
-    <>
-      <WeightsContainer>
-        <WeightsDescription>available weights:</WeightsDescription>
-        {weights.map((weight, index) => {
-          return (
-            <Weight
-              key={`${weight}-${index}`}
-              weight={weight}
-              showRemove={true}
-              onAddWeight={handleAddWeight}
-              onRemoveWeight={handleRemoveWeight}
-            ></Weight>
-          );
-        })}
-        {blankWeightVisible && (
+    <WeightsContainer>
+      <WeightsDescription>available weights:</WeightsDescription>
+      {weights.map((weight, index) => {
+        return (
           <Weight
+            key={`${weight}-${index}`}
+            weight={weight}
+            showRemove={true}
             onAddWeight={handleAddWeight}
             onRemoveWeight={handleRemoveWeight}
-            onError={(message: string) => setError(message)}
-            weight={null}
           ></Weight>
-        )}
-        <AddWeightIcon
-          onClick={(): void => {
-            setBlankWeightVisible(true);
-          }}
-        ></AddWeightIcon>
-      </WeightsContainer>
-    </>
+        );
+      })}
+      {blankWeightVisible && (
+        <Weight
+          onAddWeight={handleAddWeight}
+          onRemoveWeight={handleRemoveWeight}
+          onError={(message: string) => setError(message)}
+          weight={null}
+        ></Weight>
+      )}
+      <AddWeightIcon
+        onClick={(): void => {
+          setBlankWeightVisible(true);
+        }}
+      ></AddWeightIcon>
+    </WeightsContainer>
   );
 };
 

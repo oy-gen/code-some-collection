@@ -1,7 +1,7 @@
 :root {
   --accent-background-color: #6366f1;
   --accent-font-color: #6366f1;
-  --text-color: rgb(36, 36, 36);
+  --text-color: #242424FF;
 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
@@ -9,10 +9,16 @@
   font-weight: 400;
   color: var(--text-color);
 
-  font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@media (max-width: 480px) {
+  :root {
+    font-size: 14px;
+  }
+
 }
 
 a {

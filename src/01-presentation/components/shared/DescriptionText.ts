@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
 
-export const StyledDescription = styled.p`
+export const DescriptionText = styled.p`
   margin-bottom: 2rem;
 `;

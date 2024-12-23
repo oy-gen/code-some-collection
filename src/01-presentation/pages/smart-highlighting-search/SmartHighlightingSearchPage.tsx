@@ -3,14 +3,14 @@ import styled from "styled-components";
 import {
   selectSmartHighlightingSearch,
   useStore,
-} from "../../03-data/store/useStore";
+} from "../../../03-data/store/useStore.ts";
 import DOMPurify from "dompurify";
-import useFindSearchResultsAndHighlight from "../../02-business-logic/smart-highlighting-search/hooks/useFindResultsAndHighlight";
-import { useFetchContractNumbers } from "../../03-data/fetch/useFetchContractNumbers";
-import { StyledContentContainer } from "../components/shared/StyledContentContainer";
-import { StyledDescription } from "../components/shared/SyledDescription";
-import { StyledInputField } from "../components/shared/StyledInputField";
-import { StyledButton } from "../components/shared/SyledButton";
+import useFindSearchResultsAndHighlight from "../../../02-business-logic/smart-highlighting-search/hooks/useFindResultsAndHighlight.ts";
+import { useFetchContractNumbers } from "../../../03-data/fetch/useFetchContractNumbers.ts";
+import { StyledContentContainer } from "../../components/shared/StyledContentContainer.ts";
+import { StyledInputField } from "../../components/shared/StyledInputField.ts";
+import { StyledButton } from "../../components/shared/SyledButton.ts";
+import { DescriptionText } from "../../components/shared/DescriptionText.ts";
 
 export const SmartHighlightingSearchPage: React.FC = () => {
   useFetchContractNumbers();
@@ -20,7 +20,7 @@ export const SmartHighlightingSearchPage: React.FC = () => {
   useFindSearchResultsAndHighlight(searchValue);
 
   const { contractNumbers, searchResults, addContractNumber } = useStore(
-    selectSmartHighlightingSearch
+    selectSmartHighlightingSearch,
   );
 
   function handleAddNumber(): void {
@@ -30,7 +30,7 @@ export const SmartHighlightingSearchPage: React.FC = () => {
   }
 
   function handleSearchValueChange(
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ): void {
     const sanitizedValue = DOMPurify.sanitize(event.target.value);
     setSearchValue(sanitizedValue);
@@ -40,7 +40,7 @@ export const SmartHighlightingSearchPage: React.FC = () => {
     <>
       <StyledContentContainer>
         <h1>Search with Smart Highlighting</h1>
-        <StyledDescription>
+        <DescriptionText>
           A user-friendly search functionality designed for complex strings,
           such as contract or registration numbers, which may include spaces or
           special-character separators like '-', '/', or '.'. The search
@@ -51,7 +51,7 @@ export const SmartHighlightingSearchPage: React.FC = () => {
           the search, ignoring all separators. Try it out! Search for{" "}
           <strong>'a-b/c'</strong>, <strong>'cba'</strong>, or{" "}
           <strong>'ccc'</strong>. Or add a new number.
-        </StyledDescription>
+        </DescriptionText>
         <ResultWrapper></ResultWrapper>
         <ResultWrapper>
           <ResultColumn>
