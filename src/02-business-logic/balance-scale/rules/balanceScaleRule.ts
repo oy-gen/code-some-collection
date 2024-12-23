@@ -1,12 +1,26 @@
-import { ScaleData } from "../../../03-data/store/slices/balanceScaleSlice";
+import {
+  HeavierSideEnum,
+  ScaleData,
+} from "../../../03-data/store/slices/balanceScaleSlice";
 
-export function balanceScaleRule(scaleData: ScaleData): ScaleData | null {
-  const leftScaleBase: number = scaleData.leftScale[0];
-  const rightScaleBase: number = scaleData.rightScale[0];
-  if (leftScaleBase === rightScaleBase) {
-    return scaleData;
+export function balanceScaleRule(
+  leftScale: number[],
+  rightScale: number[],
+  weights: number[],
+): ScaleData | null {
+  const leftScaleInitialWeight: number = leftScale.reduce(
+    (previous, current) => previous + current,
+    0,
+  );
+  const rightScaleInitialWeight: number = rightScale.reduce(
+    (acc, weight) => acc + weight,
+    0,
+  );
+
+  if (leftScaleInitialWeight === rightScaleInitialWeight) {
+    return null;
   }
-  const weights: number[] = [...scaleData.weights];
+
   let lowestPossibleBalance = Infinity;
   let bestResult: ScaleData | null = null;
 
@@ -20,8 +34,8 @@ export function balanceScaleRule(scaleData: ScaleData): ScaleData | null {
     combinationIndex < possibleCombinationsCount;
     combinationIndex++
   ) {
-    let leftScaleSum: number = scaleData.leftScale[0];
-    let rightScaleSum: number = scaleData.rightScale[0];
+    let leftScaleSum: number = leftScaleInitialWeight;
+    let rightScaleSum: number = rightScaleInitialWeight;
     const leftWeightsAdded: number[] = [];
     const rightWeightsAdded: number[] = [];
     let placementIndex: number = combinationIndex;
@@ -43,14 +57,6 @@ export function balanceScaleRule(scaleData: ScaleData): ScaleData | null {
       // After extracting the placement for the first weight, we divide placementIndex by 3
       // and round down (Math.floor) to shift to the next weight in the base-3 sequence.
 
-      // Example with combinationIndex = 16 (placementIndex starts as 16) and 3 weights:
-      // 1. 1st weight: placementIndex = 16 -> 16 % 3 = 1 → place weight on the left scale
-      //    Update placementIndex: Math.floor(16 / 3) = 5
-      // 2. 2nd weight: placementIndex = 5 -> 5 % 3 = 2 → place weight on the right scale
-      //    Update placementIndex: Math.floor(5 / 3) = 1
-      // 3. 3rd weight: placementIndex = 1 -> 1 % 3 = 1 → place weight on the left scale
-      //    Update placementIndex: Math.floor(1 / 3) = 0 (loop ends)
-
       if (placement === 1) {
         leftScaleSum += currentWeight;
         leftWeightsAdded.push(currentWeight);
@@ -60,21 +66,23 @@ export function balanceScaleRule(scaleData: ScaleData): ScaleData | null {
       }
     }
 
-    // Check if this combination is balanced and track the smallest balanced sum
     if (
       leftScaleSum === rightScaleSum &&
       leftScaleSum < lowestPossibleBalance
     ) {
       lowestPossibleBalance = leftScaleSum;
-      const weightsRemaining = weights.filter(
+      const weightsRemaining = [...weights].filter(
         (weight) =>
           ![...leftWeightsAdded, ...rightWeightsAdded].includes(weight),
       );
 
       bestResult = {
-        leftScale: [...scaleData.leftScale, ...leftWeightsAdded],
-        rightScale: [...scaleData.rightScale, ...rightWeightsAdded],
+        leftScale: [...leftScale, ...leftWeightsAdded],
+        rightScale: [...rightScale, ...rightWeightsAdded],
         weights: weightsRemaining,
+        leftScaleSum: leftScaleSum,
+        rightScaleSum: rightScaleSum,
+        heavierSide: HeavierSideEnum.Equal,
       };
     }
   }
