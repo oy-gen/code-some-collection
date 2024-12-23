@@ -3,12 +3,14 @@ import styled from "styled-components";
 import {
   selectSmartHighlightingSearch,
   useStore,
-} from "../../03-data/store/useStore";
+} from "../../../03-data/store/useStore.ts";
 import DOMPurify from "dompurify";
-import useFindSearchResultsAndHighlight from "../../02-business-logic/smart-highlighting-search/hooks/useFindResultsAndHighlight";
-import { Button } from "../components/Button";
-import { Input } from "../components/Input";
-import { useFetchContractNumbers } from "../../03-data/fetch/useFetchContractNumbers";
+import useFindSearchResultsAndHighlight from "../../../02-business-logic/smart-highlighting-search/hooks/useFindResultsAndHighlight.ts";
+import { useFetchContractNumbers } from "../../../03-data/fetch/useFetchContractNumbers.ts";
+import { StyledContentContainer } from "../../components/shared/StyledContentContainer.ts";
+import { StyledInputField } from "../../components/shared/StyledInputField.ts";
+import { StyledButton } from "../../components/shared/SyledButton.ts";
+import { DescriptionText } from "../../components/shared/DescriptionText.ts";
 
 export const SmartHighlightingSearchPage: React.FC = () => {
   useFetchContractNumbers();
@@ -18,7 +20,7 @@ export const SmartHighlightingSearchPage: React.FC = () => {
   useFindSearchResultsAndHighlight(searchValue);
 
   const { contractNumbers, searchResults, addContractNumber } = useStore(
-    selectSmartHighlightingSearch
+    selectSmartHighlightingSearch,
   );
 
   function handleAddNumber(): void {
@@ -28,7 +30,7 @@ export const SmartHighlightingSearchPage: React.FC = () => {
   }
 
   function handleSearchValueChange(
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ): void {
     const sanitizedValue = DOMPurify.sanitize(event.target.value);
     setSearchValue(sanitizedValue);
@@ -36,9 +38,9 @@ export const SmartHighlightingSearchPage: React.FC = () => {
 
   return (
     <>
-      <Container>
-        <Title>Search with Smart Highlighting</Title>
-        <Description>
+      <StyledContentContainer>
+        <h1>Search with Smart Highlighting</h1>
+        <DescriptionText>
           A user-friendly search functionality designed for complex strings,
           such as contract or registration numbers, which may include spaces or
           special-character separators like '-', '/', or '.'. The search
@@ -49,16 +51,16 @@ export const SmartHighlightingSearchPage: React.FC = () => {
           the search, ignoring all separators. Try it out! Search for{" "}
           <strong>'a-b/c'</strong>, <strong>'cba'</strong>, or{" "}
           <strong>'ccc'</strong>. Or add a new number.
-        </Description>
+        </DescriptionText>
         <ResultWrapper></ResultWrapper>
         <ResultWrapper>
           <ResultColumn>
             <Row>
-              <Input
+              <StyledInputField
                 placeholder="search numbers"
                 value={searchValue}
                 onChange={handleSearchValueChange}
-              ></Input>
+              ></StyledInputField>
             </Row>
             <p>
               <strong>Search sesult:</strong>
@@ -76,15 +78,12 @@ export const SmartHighlightingSearchPage: React.FC = () => {
           </ResultColumn>
           <ResultColumn>
             <Row>
-              <Input
+              <StyledInputField
                 placeholder="add numbers"
                 value={newContractNumber}
                 onChange={(event) => setNewContractNumber(event.target.value)}
-              ></Input>
-              <Button
-                buttonText="add"
-                onClick={() => handleAddNumber()}
-              ></Button>
+              ></StyledInputField>
+              <StyledButton onClick={() => handleAddNumber()}>add</StyledButton>
             </Row>
             <p>
               <strong>Available contract numbers:</strong>
@@ -95,24 +94,10 @@ export const SmartHighlightingSearchPage: React.FC = () => {
               ))}
           </ResultColumn>
         </ResultWrapper>
-      </Container>
+      </StyledContentContainer>
     </>
   );
 };
-
-const Container = styled.div`
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-`;
-
-const Title = styled.h1`
-  margin-bottom: 1rem;
-`;
-
-const Description = styled.p`
-  margin-bottom: 2rem;
-`;
 
 const HighlightedMatch = styled.p`
   .highlight {
