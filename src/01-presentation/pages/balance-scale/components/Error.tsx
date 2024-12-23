@@ -1,14 +1,29 @@
 import styled from "styled-components";
-import React, { ReactNode } from "react";
+import React, { useEffect } from "react";
+import {
+  selectBalanceScaleSlice,
+  useStore,
+} from "../../../../03-data/store/useStore.ts";
 
-type Props = {
-  children: ReactNode;
-};
-export const Error: React.FC<Props> = ({ children }) => {
-  return <StyledError>{children}</StyledError>;
+export const Error: React.FC = () => {
+  const { error, setError } = useStore(selectBalanceScaleSlice);
+  useEffect(() => {
+    if (error) {
+      const timeout = setTimeout(() => setError(null), 3000);
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
+  }, [setError, error]);
+
+  if (!error) {
+    return null;
+  }
+
+  return <ErrorMessage>{error}</ErrorMessage>;
 };
 
-const StyledError = styled.p`
+const ErrorMessage = styled.p`
   color: red;
   font-size: 1.2rem;
   font-weight: bold;
