@@ -15,7 +15,7 @@ export const PageLayout: React.FC = () => {
 };
 
 const PageContent = styled.main`
-  flex: 1;
-  margin: auto;
-  padding: 1rem 0;
+  margin: 0 auto;
+  padding: 1rem;
+  max-width: 800px;
 `;

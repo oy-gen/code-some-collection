@@ -7,10 +7,9 @@ import {
 import DOMPurify from "dompurify";
 import useFindSearchResultsAndHighlight from "../../../02-business-logic/smart-highlighting-search/hooks/useFindResultsAndHighlight.ts";
 import { useFetchContractNumbers } from "../../../03-data/fetch/useFetchContractNumbers.ts";
-import { StyledContentContainer } from "../../components/shared/StyledContentContainer.ts";
-import { StyledInputField } from "../../components/shared/StyledInputField.ts";
-import { StyledButton } from "../../components/shared/SyledButton.ts";
+import { InputField } from "../../components/shared/InputField.ts";
 import { DescriptionText } from "../../components/shared/DescriptionText.ts";
+import { Button } from "../../components/shared/Button.ts";
 
 export const SmartHighlightingSearchPage: React.FC = () => {
   useFetchContractNumbers();
@@ -38,66 +37,64 @@ export const SmartHighlightingSearchPage: React.FC = () => {
 
   return (
     <>
-      <StyledContentContainer>
-        <h1>Search with Smart Highlighting</h1>
-        <DescriptionText>
-          A user-friendly search functionality designed for complex strings,
-          such as contract or registration numbers, which may include spaces or
-          special-character separators like '-', '/', or '.'. The search
-          normalizes these inputs into an alphanumeric format, allowing users to
-          find results without worrying about exact formatting.
-          <br></br>
-          The challenge was to precisely highlight only the consecutive parts of
-          the search, ignoring all separators. Try it out! Search for{" "}
-          <strong>'a-b/c'</strong>, <strong>'cba'</strong>, or{" "}
-          <strong>'ccc'</strong>. Or add a new number.
-        </DescriptionText>
-        <ResultWrapper></ResultWrapper>
-        <ResultWrapper>
-          <ResultColumn>
-            <Row>
-              <StyledInputField
-                placeholder="search numbers"
-                value={searchValue}
-                onChange={handleSearchValueChange}
-              ></StyledInputField>
-            </Row>
-            <p>
-              <strong>Search sesult:</strong>
-            </p>
-            {searchResults ? (
-              searchResults.map((result) => (
-                <HighlightedMatch
-                  key={result}
-                  dangerouslySetInnerHTML={{ __html: result }}
-                ></HighlightedMatch>
-              ))
-            ) : (
-              <p>no match found</p>
-            )}
-          </ResultColumn>
-          <ResultColumn>
-            <Row>
-              <StyledInputField
-                placeholder="add numbers"
-                value={newContractNumber}
-                onChange={(event) => setNewContractNumber(event.target.value)}
-              ></StyledInputField>
-              <StyledButton onClick={() => handleAddNumber()}>add</StyledButton>
-            </Row>
-            <p>
-              <strong>Available contract numbers:</strong>
-            </p>
-            {contractNumbers &&
-              contractNumbers.map((item, index) => (
-                <p key={`${item}-${index}`}>{item}</p>
-              ))}
-          </ResultColumn>
-        </ResultWrapper>
-      </StyledContentContainer>
+      <h1>Search with Smart Highlighting</h1>
+      <DescriptionText>
+        A user-friendly search functionality designed for complex strings, such
+        as contract or registration numbers, which may include spaces or
+        special-character separators like '-', '/', or '.'. The search
+        normalizes these inputs into an alphanumeric format, allowing users to
+        find results without worrying about exact formatting.
+        <br></br>
+        The challenge was to precisely highlight only the consecutive parts of
+        the search, ignoring all separators. Try it out! Search for{" "}
+        <strong>'a-b/c'</strong>, <strong>'cba'</strong>, or{" "}
+        <strong>'ccc'</strong>. Or add a new number.
+      </DescriptionText>
+      <ResultWrapper>
+        <InputField
+          placeholder="search numbers"
+          value={searchValue}
+          onChange={handleSearchValueChange}
+        ></InputField>
+        <InputButtonWrapper>
+          <InputField
+            placeholder="add numbers"
+            value={newContractNumber}
+            $width={"narrow"}
+            onChange={(event) => setNewContractNumber(event.target.value)}
+          ></InputField>
+          <Button onClick={() => handleAddNumber()}>add</Button>
+        </InputButtonWrapper>
+        <div>
+          <h4>Search result:</h4>
+          {searchResults ? (
+            searchResults.map((result) => (
+              <HighlightedMatch
+                key={result}
+                dangerouslySetInnerHTML={{ __html: result }}
+              ></HighlightedMatch>
+            ))
+          ) : (
+            <p>no match found</p>
+          )}
+        </div>
+        <div>
+          <h4>Available entries:</h4>
+          {contractNumbers &&
+            contractNumbers.map((item, index) => (
+              <p key={`${item}-${index}`}>{item}</p>
+            ))}
+        </div>
+      </ResultWrapper>
     </>
   );
 };
+
+const ResultWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+`;
 
 const HighlightedMatch = styled.p`
   .highlight {
@@ -106,17 +103,6 @@ const HighlightedMatch = styled.p`
   }
 `;
 
-const ResultWrapper = styled.div`
+const InputButtonWrapper = styled.div`
   display: flex;
-  width: 100%;
-  gap: 3rem;
-`;
-
-const Row = styled.div`
-  display: flex;
-  margin-bottom: 2rem;
-`;
-
-const ResultColumn = styled.div`
-  width: 50%;
 `;
