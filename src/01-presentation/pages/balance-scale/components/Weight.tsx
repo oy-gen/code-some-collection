@@ -85,7 +85,7 @@ const WeightIcon = styled.div`
   font-weight: bolder;
   text-align: center;
   padding-top: 45px;
-  background-image: url("../../../../../public/weight.svg");
+  background-image: url("/src/00-assets/weight.svg");
   background-position: center;
 `;
 

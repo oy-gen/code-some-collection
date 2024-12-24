@@ -5,6 +5,7 @@ import {
   useStore,
 } from "../../../../03-data/store/useStore.ts";
 import { Weight } from "./Weight.tsx";
+import PlusIcon from "../../../../00-assets/plus.svg?react";
 
 export const AvailableWeights: React.FC = () => {
   const { weights, setError, addWeightToStock, removeWeightFromStock } =
@@ -52,11 +53,11 @@ export const AvailableWeights: React.FC = () => {
           weight={null}
         ></Weight>
       )}
-      <AddWeightIcon
+      <StyledPlusIcon
         onClick={(): void => {
           setBlankWeightVisible(true);
         }}
-      ></AddWeightIcon>
+      ></StyledPlusIcon>
     </WeightsContainer>
   );
 };
@@ -79,9 +80,8 @@ const WeightsDescription = styled.p`
   left: 15px;
 `;
 
-const AddWeightIcon = styled.div`
+const StyledPlusIcon = styled(PlusIcon)`
   width: 50px;
   height: 50px;
-  background-image: url("../../../../../public/plus.svg");
   cursor: pointer;
 `;
