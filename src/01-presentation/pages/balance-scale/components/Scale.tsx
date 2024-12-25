@@ -48,15 +48,14 @@ export const Scale: React.FC = () => {
 const ScaleContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 50px;
+  grid-template-rows: 1fr 3rem;
   margin: 0 auto 2rem;
   justify-content: center;
-  height: 300px;
+  height: 20rem;
 `;
 
 const ScalePan = styled.div`
   display: flex;
-  flex-grow: 1;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
@@ -66,12 +65,11 @@ const ScalePanContent = styled.div`
   display: flex;
   justify-content: center;
   gap: 0.5rem;
-  width: 90%;
-  height: 200px;
+  width: 95%;
   overflow: visible;
   flex-wrap: wrap-reverse;
   padding: 1rem;
-  border-bottom: 0.5rem solid black;
+  border-bottom: 0.5rem solid ${({ theme }) => theme.colors.text};
 `;
 
 const ScaleHeight = styled.div<{
@@ -80,7 +78,7 @@ const ScaleHeight = styled.div<{
 }>`
   justify-self: center;
   width: 0.5rem;
-  background-color: black;
+  background-color: ${({ theme }) => theme.colors.text};
   height: ${(props) => {
     if (props.$heavierSide === HeavierSideEnum.Equal) {
       return "1rem";
@@ -100,8 +98,8 @@ const ScaleBase = styled.div`
   grid-column: 1 / span 2;
   width: calc(50% + 0.5rem);
   justify-self: center;
-  border-bottom: 0.5rem solid black;
-  border-left: 0.5rem solid black;
-  border-right: 0.5rem solid black;
+  border-bottom: 0.5rem solid ${({ theme }) => theme.colors.text};
+  border-left: 0.5rem solid ${({ theme }) => theme.colors.text};
+  border-right: 0.5rem solid ${({ theme }) => theme.colors.text};
   border-radius: 0 0 2rem 2rem;
 `;

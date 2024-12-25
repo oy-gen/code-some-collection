@@ -1,17 +1,16 @@
 import styled from "styled-components";
 
 export const Button = styled.button`
-  font-size: 1rem;
   padding: 1rem;
   font-weight: bold;
   border: none;
-  background-color: var(--accent-background-color);
+  background-color: ${({ theme }) => theme.colors.primary};
   color: white;
   cursor: pointer;
   transition: background-color 0.25s;
 
   &:hover {
-    background-color: #8086f9;
+    opacity: 0.9;
   }
 
   &:disabled {

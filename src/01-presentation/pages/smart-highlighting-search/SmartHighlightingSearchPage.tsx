@@ -98,7 +98,7 @@ const ResultWrapper = styled.div`
 
 const HighlightedMatch = styled.p`
   .highlight {
-    color: orange;
+    color: ${({ theme }) => theme.colors.warning};
     font-weight: bold;
   }
 `;

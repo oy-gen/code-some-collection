@@ -45,7 +45,7 @@ export const Weight: React.FC<Props> = ({
   return (
     <WeightIcon>
       {showRemove && (
-        <WeightDeleteIcon onClick={handleRemoveWeight}>x</WeightDeleteIcon>
+        <WeightDeleteIcon onClick={handleRemoveWeight}>X</WeightDeleteIcon>
       )}
       {weight === null ? (
         <WeightInput
@@ -65,8 +65,8 @@ export const Weight: React.FC<Props> = ({
 
 const WeightIcon = styled.div`
   position: relative;
-  width: 6rem;
-  height: 6rem;
+  width: 5.5rem;
+  height: 5.5rem;
   font-size: 1.5rem;
   font-weight: bolder;
   text-align: center;
@@ -83,13 +83,12 @@ const WeightInput = styled.input<{ value: string }>`
   font-size: 1.5rem;
   font-weight: bolder;
   text-align: center;
-  outline: 4px solid var(--accent-background-color);
-  border-radius: 3px;
-  margin-right: 5px;
+  outline: 0.3rem solid ${({ theme }) => theme.colors.primary};
+  border-radius: 0.1rem;
+  margin-right: 0.2rem;
 
   &:focus {
-    outline: 4px solid var(--accent-background-color);
-    border-radius: 3px;
+    outline: 0.3rem solid ${({ theme }) => theme.colors.primary};
   }
 `;
 
@@ -97,11 +96,11 @@ const WeightDeleteIcon = styled.div`
   position: absolute;
   top: 0;
   right: 0;
-  font-size: 2rem;
+  font-size: 1rem;
   line-height: 0;
   cursor: pointer;
 
   &:hover {
-    color: red;
+    color: ${({ theme }) => theme.colors.error};
   }
 `;

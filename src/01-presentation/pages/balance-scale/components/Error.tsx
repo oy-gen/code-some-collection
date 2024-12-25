@@ -24,7 +24,7 @@ export const Error: React.FC = () => {
 };
 
 const ErrorMessage = styled.p`
-  color: red;
+  color: ${({ theme }) => theme.colors.error};
   font-size: 1.2rem;
   font-weight: bold;
 `;

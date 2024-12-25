@@ -68,20 +68,25 @@ const WeightsContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  gap: 1rem;
-  padding: 2rem;
-  border: 8px solid var(--accent-background-color);
-  border-radius: 2rem;
+  gap: ${({ theme }) => theme.spacing.medium};
+  padding: ${({ theme }) => theme.spacing.large};
+  border: 0.5rem solid ${({ theme }) => theme.colors.primary};
+  border-radius: ${({ theme }) => theme.spacing.large};
 `;
 
 const WeightsDescription = styled.p`
   position: absolute;
-  top: 5px;
-  left: 15px;
+  top: 0.3rem;
+  left: 0.7rem;
 `;
 
 const StyledPlusIcon = styled(PlusIcon)`
-  width: 50px;
-  height: 50px;
+  width: 3rem;
+  height: 3rem;
+
   cursor: pointer;
+  padding-left: ${({ theme }) => theme.spacing.small};
+  &:hover {
+    opacity: 0.9;
+  }
 `;

@@ -16,6 +16,6 @@ export const PageLayout: React.FC = () => {
 
 const PageContent = styled.main`
   margin: 0 auto;
-  padding: 1rem;
-  max-width: 800px;
+  padding: ${({ theme }) => theme.spacing.large + " " + theme.spacing.medium};
+  max-width: ${({ theme }) => theme.breakpoints.mobile};
 `;

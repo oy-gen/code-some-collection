@@ -16,15 +16,15 @@ export const Navigation: React.FC = () => {
 };
 
 const NavList = styled.ul`
-  background-color: var(--accent-background-color);
-  padding: 2rem;
+  background-color: ${({ theme }) => theme.colors.primary};
+  padding: ${({ theme }) => theme.spacing.large};
   display: flex;
-  gap: 2rem;
+  gap: ${({ theme }) => theme.spacing.large};
   list-style: none;
 `;
 
 const NavLink = styled(Link)`
-  color: white;
+  color: ${({ theme }) => theme.colors.background};
   text-decoration: none;
   &:hover {
     text-decoration: underline;

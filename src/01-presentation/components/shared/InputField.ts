@@ -16,8 +16,7 @@ export const InputField = styled.input<{
     }
   }};
   border: none;
-  background-color: #eeeeee;
-
+  background-color: ${({ theme }) => theme.colors.backgroundDarker};
   &:focus {
     outline: none;
   }
