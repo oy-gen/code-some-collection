@@ -47,10 +47,11 @@ export const Scale: React.FC = () => {
 
 const ScaleContainer = styled.div`
   display: grid;
-  grid-template-columns: 50% 50%;
-  grid-template-rows: 250px 50px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 50px;
   margin: 0 auto 2rem;
   justify-content: center;
+  height: 300px;
 `;
 
 const ScalePan = styled.div`
@@ -59,20 +60,18 @@ const ScalePan = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  width: 100%;
 `;
 
 const ScalePanContent = styled.div`
   display: flex;
   justify-content: center;
-  gap: 5px;
-  flex-grow: 1;
-
+  gap: 0.5rem;
+  width: 90%;
   height: 200px;
   overflow: visible;
   flex-wrap: wrap-reverse;
   padding: 1rem;
-  border-bottom: 8px solid black;
+  border-bottom: 0.5rem solid black;
 `;
 
 const ScaleHeight = styled.div<{
@@ -80,7 +79,7 @@ const ScaleHeight = styled.div<{
   $isLeftSide: boolean;
 }>`
   justify-self: center;
-  width: 8px;
+  width: 0.5rem;
   background-color: black;
   height: ${(props) => {
     if (props.$heavierSide === HeavierSideEnum.Equal) {
@@ -99,10 +98,10 @@ const ScaleHeight = styled.div<{
 
 const ScaleBase = styled.div`
   grid-column: 1 / span 2;
-  width: calc(50% + 8px);
+  width: calc(50% + 0.5rem);
   justify-self: center;
-  border-bottom: 8px solid black;
-  border-left: 8px solid black;
-  border-right: 8px solid black;
+  border-bottom: 0.5rem solid black;
+  border-left: 0.5rem solid black;
+  border-right: 0.5rem solid black;
   border-radius: 0 0 2rem 2rem;
 `;

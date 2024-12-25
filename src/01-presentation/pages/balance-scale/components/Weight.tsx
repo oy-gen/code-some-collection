@@ -47,7 +47,6 @@ export const Weight: React.FC<Props> = ({
       {showRemove && (
         <WeightDeleteIcon onClick={handleRemoveWeight}>x</WeightDeleteIcon>
       )}
-
       {weight === null ? (
         <WeightInput
           value={newWeight}
@@ -64,6 +63,36 @@ export const Weight: React.FC<Props> = ({
   );
 };
 
+const WeightIcon = styled.div`
+  position: relative;
+  width: 6rem;
+  height: 6rem;
+  font-size: 1.5rem;
+  font-weight: bolder;
+  text-align: center;
+  align-content: center;
+  padding-top: 1rem;
+  background-image: url("/src/00-assets/weight.svg");
+  background-position: center;
+  background-size: contain;
+`;
+
+const WeightInput = styled.input<{ value: string }>`
+  width: ${(props) => Math.max(props.value.length, 2)}ch;
+  border: unset;
+  font-size: 1.5rem;
+  font-weight: bolder;
+  text-align: center;
+  outline: 4px solid var(--accent-background-color);
+  border-radius: 3px;
+  margin-right: 5px;
+
+  &:focus {
+    outline: 4px solid var(--accent-background-color);
+    border-radius: 3px;
+  }
+`;
+
 const WeightDeleteIcon = styled.div`
   position: absolute;
   top: 0;
@@ -74,33 +103,5 @@ const WeightDeleteIcon = styled.div`
 
   &:hover {
     color: red;
-  }
-`;
-
-const WeightIcon = styled.div`
-  position: relative;
-  width: 100px;
-  height: 100px;
-  font-size: 1.5rem;
-  font-weight: bolder;
-  text-align: center;
-  padding-top: 45px;
-  background-image: url("/src/00-assets/weight.svg");
-  background-position: center;
-`;
-
-const WeightInput = styled.input<{ value: string }>`
-  display: inline-block;
-  width: ${(props) => Math.max(props.value.length, 2)}ch;
-  border: unset;
-  font-size: 1.5rem;
-  font-weight: bolder;
-  text-align: center;
-  outline: 4px solid var(--accent-background-color);
-  border-radius: 3px;
-
-  &:focus {
-    outline: 4px solid var(--accent-background-color);
-    border-radius: 3px;
   }
 `;
