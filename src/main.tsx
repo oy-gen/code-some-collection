@@ -1,21 +1,27 @@
-import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "./main.css";
-import { SmartHighlightingSearchPage } from "./01-presentation/pages/smart-highlighting-search/SmartHighlightingSearchPage.tsx";
-import { BalanceScalePage } from "./01-presentation/pages/balance-scale/BalanceScalePage.tsx";
-import { PageLayout } from "./01-presentation/components/shared/PageLayout.tsx";
+
+import { PageLayout } from "./shared/components/page-layout.tsx";
+import { GlobalStyles } from "./shared/styles/global-styles.ts";
+import { ThemeProvider } from "styled-components";
+import { theme } from "./shared/styles/theme.ts";
+import { SmartHighlightingSearchPage } from "./features/smart-highlighting-search/presentation/smart-highlighting-search-page.tsx";
+import { BalanceScalePage } from "./features/balance-scale/presentation/balance-scale-page.tsx";
+import { StrictMode } from "react";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route element={<PageLayout />}>
-          <Route path="" element={<SmartHighlightingSearchPage />} />
-          <Route path="/balance-scale" element={<BalanceScalePage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
+      <BrowserRouter>
+        <Routes>
+          <Route element={<PageLayout />}>
+            <Route path="/balance-scale" element={<BalanceScalePage />} />
+            <Route path="" element={<SmartHighlightingSearchPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   </StrictMode>,
 );
