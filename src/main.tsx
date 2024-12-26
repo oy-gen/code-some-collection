@@ -16,8 +16,8 @@ createRoot(document.getElementById("root")!).render(
       <BrowserRouter>
         <Routes>
           <Route element={<PageLayout />}>
-            <Route path="" element={<SmartHighlightingSearchPage />} />
             <Route path="/balance-scale" element={<BalanceScalePage />} />
+            <Route path="" element={<SmartHighlightingSearchPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

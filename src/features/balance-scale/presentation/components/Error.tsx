@@ -6,7 +6,7 @@ import {
 } from "../../../../shared/store/useStore.ts";
 
 export const Error: React.FC = () => {
-  const duration = 3000;
+  const duration = 2500;
   const { error, setError } = useStore(selectBalanceScaleSlice);
   useEffect(() => {
     if (error) {
@@ -23,18 +23,22 @@ export const Error: React.FC = () => {
 
   return (
     <>
-      <ErrorWrapper>{error}</ErrorWrapper>
-      <ProgressBar $duration={duration} />
+      <ErrorWrapper>
+        {error}
+        <ProgressBar $duration={duration} />
+      </ErrorWrapper>
     </>
   );
 };
 
 const ErrorWrapper = styled.div`
-  padding: 0.5rem;
   background-color: ${({ theme }) => theme.colors.backgroundError};
   color: ${({ theme }) => theme.colors.error};
   position: relative;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 `;
 
 const ProgressBar = styled.div<{ $duration: number }>`

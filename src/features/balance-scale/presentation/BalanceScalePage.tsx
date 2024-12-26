@@ -32,7 +32,7 @@ export const BalanceScalePage: React.FC = () => {
       setShouldReset(false);
     } else {
       if (leftScalePanSum === rightScalePanSum) {
-        setError("scale is already balanced");
+        setError("scale is already balanced, add weights or reset");
         setShouldReset(true);
         return;
       }
@@ -63,19 +63,18 @@ export const BalanceScalePage: React.FC = () => {
         configurations. Try it out! Add or remove weights from the stock to test
         the algorithm.
       </Description>
-      <ButtonContainer>
-        <Button onClick={calculateBalance} $isError={shouldReset}>
-          {shouldReset ? "reset" : "calculate"}
-        </Button>
-      </ButtonContainer>
       <Scale />
-      <AvailableWeights onWeightsChanged={() => setShouldReset(false)} />
-
-      {error && (
-        <ErrorContainer>
+      <ButtonContainer>
+        {" "}
+        {error ? (
           <Error />
-        </ErrorContainer>
-      )}
+        ) : (
+          <Button onClick={calculateBalance} $isError={shouldReset}>
+            {shouldReset ? "reset" : "calculate"}
+          </Button>
+        )}
+      </ButtonContainer>
+      <AvailableWeights onWeightsChanged={() => setShouldReset(false)} />
     </>
   );
 };
@@ -83,12 +82,6 @@ export const BalanceScalePage: React.FC = () => {
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
-`;
-
-const ErrorContainer = styled.div`
-  position: absolute;
-  left: 1rem;
-  right: 1rem;
-  bottom: 1rem;
-  justify-content: center;
+  margin-bottom: 1rem;
+  height: 3rem;
 `;

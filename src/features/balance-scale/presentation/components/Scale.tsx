@@ -8,9 +8,13 @@ import { Weight } from "./Weight.tsx";
 import { HeavierSideEnum } from "../../store/BalanceScaleState.ts";
 
 export const Scale: React.FC = () => {
-  const { leftScalePan, rightScalePan, heavierSide } = useStore(
-    selectBalanceScaleSlice,
-  );
+  const {
+    leftScalePan,
+    rightScalePan,
+    heavierSide,
+    leftScalePanSum,
+    rightScalePanSum,
+  } = useStore(selectBalanceScaleSlice);
 
   return (
     <ScaleContainer>
@@ -21,6 +25,9 @@ export const Scale: React.FC = () => {
               <Weight key={`${weight}-${index}-left`} weight={weight}></Weight>
             );
           })}
+          <ScalePanSum $isLeftSide={true}>
+            total: {leftScalePanSum}kg
+          </ScalePanSum>
         </ScalePanContent>
         <ScaleDistance
           $heavierSide={heavierSide}
@@ -34,6 +41,7 @@ export const Scale: React.FC = () => {
               <Weight key={`${weight}-${index}-right`} weight={weight}></Weight>
             );
           })}
+          <ScalePanSum>total: {rightScalePanSum}kg</ScalePanSum>
         </ScalePanContent>
         <ScaleDistance
           $heavierSide={heavierSide}
@@ -49,9 +57,9 @@ const ScaleContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 3rem;
-  margin: 0 auto 3rem;
+  margin: -10rem auto 1rem;
   justify-content: center;
-  height: 18rem;
+  height: 24rem;
 `;
 
 const ScalePan = styled.div`
@@ -62,21 +70,26 @@ const ScalePan = styled.div`
 `;
 
 const ScalePanContent = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   gap: 0.5rem;
   width: 95%;
-  overflow: visible;
   flex-wrap: wrap-reverse;
   padding: 0.5rem;
   border-bottom: 0.5rem solid ${({ theme }) => theme.colors.text};
+`;
+
+const ScalePanSum = styled.p<{ $isLeftSide?: boolean }>`
+  position: absolute;
+  bottom: -2rem;
+  ${(props) => (props.$isLeftSide ? "left: 0;" : "right: 0;")}
 `;
 
 const ScaleDistance = styled.div<{
   $heavierSide: HeavierSideEnum;
   $isLeftSide: boolean;
 }>`
-  justify-self: center;
   width: 0.5rem;
   background-color: ${({ theme }) => theme.colors.text};
   height: ${(props) => {
@@ -98,6 +111,7 @@ const ScaleBase = styled.div`
   grid-column: 1 / span 2;
   width: calc(50% + 0.5rem);
   justify-self: center;
+  height: 3rem;
   border-bottom: 0.5rem solid ${({ theme }) => theme.colors.text};
   border-left: 0.5rem solid ${({ theme }) => theme.colors.text};
   border-right: 0.5rem solid ${({ theme }) => theme.colors.text};
