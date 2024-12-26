@@ -54,7 +54,7 @@ export const BalanceScalePage: React.FC = () => {
 
   return (
     <>
-      <h1>Scale Balancing</h1>
+      <h1>Scale Balancing Algorithm</h1>
       <Description>
         The infamous Scale Balance Challenge! This solution dynamically
         calculates the balance between two sides using the available weights and

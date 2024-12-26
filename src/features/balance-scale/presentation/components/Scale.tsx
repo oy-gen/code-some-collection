@@ -57,7 +57,7 @@ const ScaleContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 3rem;
-  margin: -10rem auto 1rem;
+  margin: -8rem auto 1rem;
   justify-content: center;
   height: 24rem;
 `;
