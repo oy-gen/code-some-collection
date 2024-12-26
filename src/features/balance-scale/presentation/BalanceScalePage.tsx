@@ -56,11 +56,13 @@ export const BalanceScalePage: React.FC = () => {
     <>
       <h1>Scale Balancing</h1>
       <Description>
-        placeholder text user-friendly search functionality designed for complex
-        strings, such as contract or registration numbers, which may include
-        spaces or special-character separators like.
+        The infamous Scale Balance Challenge! This solution dynamically
+        calculates the balance between two sides using the available weights and
+        intelligently assigns them to the correct scale pan. It also selects the
+        simplest possible solution after evaluating all potential
+        configurations. Try it out! Add or remove weights from the stock to test
+        the algorithm.
       </Description>
-
       <ButtonContainer>
         <Button onClick={calculateBalance} $isError={shouldReset}>
           {shouldReset ? "reset" : "calculate"}

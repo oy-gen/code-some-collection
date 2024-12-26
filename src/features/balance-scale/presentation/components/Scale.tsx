@@ -22,10 +22,10 @@ export const Scale: React.FC = () => {
             );
           })}
         </ScalePanContent>
-        <ScaleHeight
+        <ScaleDistance
           $heavierSide={heavierSide}
           $isLeftSide={true}
-        ></ScaleHeight>
+        ></ScaleDistance>
       </ScalePan>
       <ScalePan>
         <ScalePanContent>
@@ -35,10 +35,10 @@ export const Scale: React.FC = () => {
             );
           })}
         </ScalePanContent>
-        <ScaleHeight
+        <ScaleDistance
           $heavierSide={heavierSide}
           $isLeftSide={false}
-        ></ScaleHeight>
+        ></ScaleDistance>
       </ScalePan>
       <ScaleBase></ScaleBase>
     </ScaleContainer>
@@ -49,7 +49,7 @@ const ScaleContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 3rem;
-  margin: 0 auto 2rem;
+  margin: 0 auto 3rem;
   justify-content: center;
   height: 18rem;
 `;
@@ -68,11 +68,11 @@ const ScalePanContent = styled.div`
   width: 95%;
   overflow: visible;
   flex-wrap: wrap-reverse;
-  padding: 1rem;
+  padding: 0.5rem;
   border-bottom: 0.5rem solid ${({ theme }) => theme.colors.text};
 `;
 
-const ScaleHeight = styled.div<{
+const ScaleDistance = styled.div<{
   $heavierSide: HeavierSideEnum;
   $isLeftSide: boolean;
 }>`
