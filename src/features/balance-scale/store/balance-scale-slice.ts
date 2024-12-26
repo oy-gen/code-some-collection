@@ -1,10 +1,10 @@
 import { StateCreator } from "zustand";
-import { AppState } from "../../../shared/store/useStore.ts";
+import { AppState } from "../../../shared/store/use-store.ts";
 import {
   balanceScaleInitialState,
   BalanceScaleStateAware,
   ScaleData,
-} from "./BalanceScaleState.ts";
+} from "./balance-scale-state.ts";
 
 export const createBalanceScaleSlice: StateCreator<
   AppState,

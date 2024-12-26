@@ -3,8 +3,8 @@ import styled from "styled-components";
 import {
   selectBalanceScaleSlice,
   useStore,
-} from "../../../../shared/store/useStore.ts";
-import { Weight } from "./Weight.tsx";
+} from "../../../../shared/store/use-store.ts";
+import { Weight } from "./weight.tsx";
 import PlusIcon from "../../../../assets/plus.svg?react";
 
 export const AvailableWeights: React.FC<{ onWeightsChanged: () => void }> = ({

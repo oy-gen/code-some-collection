@@ -1,16 +1,17 @@
 import {
   selectBalanceScaleSlice,
   useStore,
-} from "../../../shared/store/useStore.ts";
-import { balanceScaleRule } from "../business/rules/balanceScaleRule.ts";
-import { Error } from "./components/Error.tsx";
-import { AvailableWeights } from "./components/AvailableWeights.tsx";
-import { Scale } from "./components/Scale.tsx";
+} from "../../../shared/store/use-store.ts";
+
 import styled from "styled-components";
 import React, { useState } from "react";
-import { Description } from "../../../shared/components/Description.styles.ts";
-import { Button } from "../../../shared/components/Button.styles.ts";
-import { ScaleData } from "../store/BalanceScaleState.ts";
+import { Description } from "../../../shared/components/description.styles.ts";
+import { Button } from "../../../shared/components/button.styles.ts";
+import { ScaleData } from "../store/balance-scale-state.ts";
+import { balanceScaleRule } from "../business/rules/balance-scale-rule.ts";
+import { Scale } from "./components/scale.tsx";
+import { AvailableWeights } from "./components/available-weights.tsx";
+import { Error } from "./components/error.tsx";
 
 export const BalanceScalePage: React.FC = () => {
   const {

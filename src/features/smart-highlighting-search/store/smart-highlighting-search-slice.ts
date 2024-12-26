@@ -1,9 +1,9 @@
 import { StateCreator } from "zustand";
-import { AppState } from "../../../shared/store/useStore.ts";
+import { AppState } from "../../../shared/store/use-store.ts";
 import {
   smartHighlightingSearchInitialState,
   SmartHighlightingSearchStateAware,
-} from "./SmartHighlightingSearchState.ts";
+} from "./smart-highlighting-search-state.ts";
 
 export const createSmartHighlightingSearchSlice: StateCreator<
   AppState,

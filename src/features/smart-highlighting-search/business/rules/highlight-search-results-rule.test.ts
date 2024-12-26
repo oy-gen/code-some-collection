@@ -1,4 +1,4 @@
-import { highlightSearchResultsRule } from "./highlightSearchResultsRule.ts";
+import { highlightSearchResultsRule } from "./highlight-search-results-rule.ts";
 
 describe("highlightSearchResultsRule", () => {
   const testCases = [

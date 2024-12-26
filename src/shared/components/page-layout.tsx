@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
-import { Navigation } from "./Navigation.tsx";
+import { Navigation } from "./navigation.tsx";
 
 export const PageLayout: React.FC = () => {
   return (
