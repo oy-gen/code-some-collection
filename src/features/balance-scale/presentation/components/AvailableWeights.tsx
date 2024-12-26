@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {
   selectBalanceScaleSlice,
   useStore,
-} from "../../../../store/useStore.ts";
+} from "../../../../shared/store/useStore.ts";
 import { Weight } from "./Weight.tsx";
 import PlusIcon from "../../../../assets/plus.svg?react";
 

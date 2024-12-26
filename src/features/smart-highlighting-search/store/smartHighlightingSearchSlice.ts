@@ -1,5 +1,5 @@
 import { StateCreator } from "zustand";
-import { AppState } from "../useStore.ts";
+import { AppState } from "../../../shared/store/useStore.ts";
 import {
   smartHighlightingSearchInitialState,
   SmartHighlightingSearchStateAware,

@@ -1,13 +1,16 @@
-import { selectBalanceScaleSlice, useStore } from "../../../store/useStore.ts";
-import { balanceScaleRule } from "../../../business-logic/balance-scale/rules/balanceScaleRule.ts";
+import {
+  selectBalanceScaleSlice,
+  useStore,
+} from "../../../shared/store/useStore.ts";
+import { balanceScaleRule } from "../business/rules/balanceScaleRule.ts";
 import { Error } from "./components/Error.tsx";
 import { AvailableWeights } from "./components/AvailableWeights.tsx";
 import { Scale } from "./components/Scale.tsx";
 import styled from "styled-components";
 import React, { useState } from "react";
-import { Description } from "../../shared-components/Description.styles.ts";
-import { Button } from "../../shared-components/Button.styles.ts";
-import { ScaleData } from "../../../store/balance-scale/BalanceScaleState.ts";
+import { Description } from "../../../shared/components/Description.styles.ts";
+import { Button } from "../../../shared/components/Button.styles.ts";
+import { ScaleData } from "../store/BalanceScaleState.ts";
 
 export const BalanceScalePage: React.FC = () => {
   const {
@@ -28,7 +31,6 @@ export const BalanceScalePage: React.FC = () => {
       resetScale();
       setShouldReset(false);
     } else {
-      console.log({ leftScalePanSum, rightScalePanSum });
       if (leftScalePanSum === rightScalePanSum) {
         setError("scale is already balanced");
         setShouldReset(true);

@@ -1,4 +1,4 @@
-import { findSearchResultsRule } from "./findSearchResultsRule";
+import { findSearchResultsRule } from "./findSearchResultsRule.ts";
 
 describe("findSearchResultsRule", () => {
   const testCases = [

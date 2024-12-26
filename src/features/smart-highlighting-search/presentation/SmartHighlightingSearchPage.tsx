@@ -3,12 +3,12 @@ import styled from "styled-components";
 import {
   selectSmartHighlightingSearch,
   useStore,
-} from "../../../store/useStore.ts";
+} from "../../../shared/store/useStore.ts";
 import DOMPurify from "dompurify";
-import useFindSearchResultsAndHighlight from "../../../business-logic/smart-highlighting-search/hooks/useFindResultsAndHighlight.ts";
-import { Input } from "../../shared-components/Input.styles.ts";
-import { Description } from "../../shared-components/Description.styles.ts";
-import { Button } from "../../shared-components/Button.styles.ts";
+import useFindSearchResultsAndHighlight from "../business/hooks/useFindResultsAndHighlight.ts";
+import { Input } from "../../../shared/components/Input.styles.ts";
+import { Description } from "../../../shared/components/Description.styles.ts";
+import { Button } from "../../../shared/components/Button.styles.ts";
 
 export const SmartHighlightingSearchPage: React.FC = () => {
   const [searchValue, setSearchValue] = useState<string>("");

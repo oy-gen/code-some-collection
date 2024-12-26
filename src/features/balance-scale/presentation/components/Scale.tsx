@@ -3,9 +3,9 @@ import styled from "styled-components";
 import {
   selectBalanceScaleSlice,
   useStore,
-} from "../../../../store/useStore.ts";
+} from "../../../../shared/store/useStore.ts";
 import { Weight } from "./Weight.tsx";
-import { HeavierSideEnum } from "../../../../store/balance-scale/BalanceScaleState.ts";
+import { HeavierSideEnum } from "../../store/BalanceScaleState.ts";
 
 export const Scale: React.FC = () => {
   const { leftScalePan, rightScalePan, heavierSide } = useStore(

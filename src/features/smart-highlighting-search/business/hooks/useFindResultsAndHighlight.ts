@@ -2,9 +2,9 @@ import { useEffect, useMemo } from "react";
 import {
   selectSmartHighlightingSearch,
   useStore,
-} from "../../../store/useStore.ts";
-import { highlightSearchResultsRule } from "../rules/highlightSearchResultsRule";
-import { findSearchResultsRule } from "../rules/findSearchResultsRule";
+} from "../../../../shared/store/useStore.ts";
+import { highlightSearchResultsRule } from "../rules/highlightSearchResultsRule.ts";
+import { findSearchResultsRule } from "../rules/findSearchResultsRule.ts";
 
 export default function useFindSearchResultsAndHighlight(
   searchValue: string,

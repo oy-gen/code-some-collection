@@ -2,12 +2,12 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { SmartHighlightingSearchPage } from "./presentation/pages/smart-highlighting-search/SmartHighlightingSearchPage.tsx";
-import { BalanceScalePage } from "./presentation/pages/balance-scale/BalanceScalePage.tsx";
-import { PageLayout } from "./presentation/shared-components/PageLayout.tsx";
-import { GlobalStyles } from "./styles/GlobalStyles.ts";
+import { SmartHighlightingSearchPage } from "./features/smart-highlighting-search/presentation/SmartHighlightingSearchPage.tsx";
+import { BalanceScalePage } from "./features/balance-scale/presentation/BalanceScalePage.tsx";
+import { PageLayout } from "./shared/components/PageLayout.tsx";
+import { GlobalStyles } from "./shared/styles/GlobalStyles.ts";
 import { ThemeProvider } from "styled-components";
-import { theme } from "./styles/theme.ts";
+import { theme } from "./shared/styles/theme.ts";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

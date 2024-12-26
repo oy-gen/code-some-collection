@@ -1,7 +1,4 @@
-import {
-  HeavierSideEnum,
-  ScaleData,
-} from "../../../store/balance-scale/BalanceScaleState.ts";
+import { HeavierSideEnum, ScaleData } from "../../store/BalanceScaleState.ts";
 
 export function balanceScaleRule(
   leftScalePan: number[],

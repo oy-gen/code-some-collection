@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import {
   selectBalanceScaleSlice,
   useStore,
-} from "../../../../store/useStore.ts";
+} from "../../../../shared/store/useStore.ts";
 
 export const Error: React.FC = () => {
   const duration = 3000;

@@ -1,4 +1,4 @@
-import { highlightSearchResultsRule } from "./highlightSearchResultsRule";
+import { highlightSearchResultsRule } from "./highlightSearchResultsRule.ts";
 
 describe("highlightSearchResultsRule", () => {
   const testCases = [
@@ -73,7 +73,7 @@ describe("highlightSearchResultsRule", () => {
   testCases.forEach(({ description, searchValue, matches, expected }) => {
     test(description, () => {
       expect(highlightSearchResultsRule(searchValue, matches)).toEqual(
-        expected
+        expected,
       );
     });
   });

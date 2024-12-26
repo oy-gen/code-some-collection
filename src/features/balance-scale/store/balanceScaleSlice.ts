@@ -1,5 +1,5 @@
 import { StateCreator } from "zustand";
-import { AppState } from "../useStore.ts";
+import { AppState } from "../../../shared/store/useStore.ts";
 import {
   balanceScaleInitialState,
   BalanceScaleStateAware,
@@ -59,6 +59,8 @@ export const createBalanceScaleSlice: StateCreator<
           rightScalePan: balanceScaleInitialState.rightScalePan,
           weights: balanceScaleInitialState.weights,
           heavierSide: balanceScaleInitialState.heavierSide,
+          rightScalePanSum: balanceScaleInitialState.rightScalePanSum,
+          leftScalePanSum: balanceScaleInitialState.leftScalePanSum,
         },
       })),
   },
