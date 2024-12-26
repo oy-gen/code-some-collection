@@ -1,8 +1,18 @@
 # Code Some Collection
 
-This is a collection of different features, that i came up with. Work in progress.
+This is a collection of different challenging features.
 
-- React App with Zustand State-Management for Redux Dev Tools
+- React with Zustand and Styled-Components
+
+## Scale Balancing Algorithm
+
+The infamous Scale Balance Challenge! This solution dynamically calculates the balance between two sides using the available weights and intelligently assigns them to the correct scale pan. It also selects the simplest possible solution after evaluating all potential configurations in base-3 system ( left/right/none ). Try it out! Add or remove weights from the stock to test the algorithm.
+
+![image](https://github.com/user-attachments/assets/65ecd270-77b6-4151-b4c3-2ed2f8ea4dd5)
+---
+![image](https://github.com/user-attachments/assets/630a6668-5d24-4bd5-bdde-a2d1db0272ef)
+
+
 
 ## Smart Highlighting in Searches
 
