@@ -1,18 +1,13 @@
 import { HeavierSideEnum, ScaleData } from "../../store/balance-scale-state.ts";
+import { getTotalPanWeightRule } from "./get-total-pan-weight-rule.ts";
 
 export function balanceScaleRule(
   leftScalePan: number[],
   rightScalePan: number[],
   weights: number[],
 ): ScaleData | null {
-  const leftPanInitialWeight: number = leftScalePan.reduce(
-    (previous, current) => previous + current,
-    0,
-  );
-  const rightPanInitialWeight: number = rightScalePan.reduce(
-    (previous, current) => previous + current,
-    0,
-  );
+  const leftPanInitialWeight: number = getTotalPanWeightRule(leftScalePan);
+  const rightPanInitialWeight: number = getTotalPanWeightRule(rightScalePan);
 
   if (leftPanInitialWeight === rightPanInitialWeight) {
     return null;

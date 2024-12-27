@@ -7,27 +7,28 @@ import {
 import { Weight } from "./weight.tsx";
 import PlusIcon from "../../../../assets/plus.svg?react";
 
-export const AvailableWeights: React.FC<{ onWeightsChanged: () => void }> = ({
-  onWeightsChanged,
-}) => {
-  const { weights, setError, addWeightToStock, removeWeightFromStock } =
-    useStore(selectBalanceScaleSlice);
+export const AvailableWeights: React.FC<{
+  onError: (message: string) => void;
+}> = ({ onError }) => {
+  const { weights, addWeightToStock, removeWeightFromStock } = useStore(
+    selectBalanceScaleSlice,
+  );
   const [blankWeightVisible, setBlankWeightVisible] = useState<boolean>(false);
 
-  const handleAddWeight = (weightToAdd: number) => {
-    if (weights.includes(weightToAdd)) {
-      setError(`${weightToAdd}kg weight already exists`);
+  const handleAddWeight = (weight: number) => {
+    if (weights.includes(weight)) {
+      onError(`${weight}kg weight already exists`);
       return;
     }
-
-    addWeightToStock(weightToAdd);
-    onWeightsChanged();
+    addWeightToStock(weight);
     setBlankWeightVisible(false);
   };
 
-  const handleRemoveWeight = (weightToRemove: number) => {
-    if (weights.includes(weightToRemove)) {
-      removeWeightFromStock(weightToRemove);
+  const handleRemoveWeight = (weight: number) => {
+    if (weights.includes(weight)) {
+      removeWeightFromStock(weight);
+    } else {
+      onError(`${weight} not found`);
     }
   };
 
@@ -40,7 +41,6 @@ export const AvailableWeights: React.FC<{ onWeightsChanged: () => void }> = ({
             key={`${weight}-${index}`}
             weight={weight}
             showRemove={true}
-            onAddWeight={handleAddWeight}
             onRemoveWeight={handleRemoveWeight}
           ></Weight>
         );
@@ -48,15 +48,12 @@ export const AvailableWeights: React.FC<{ onWeightsChanged: () => void }> = ({
       {blankWeightVisible ? (
         <Weight
           onAddWeight={handleAddWeight}
-          onRemoveWeight={handleRemoveWeight}
-          onError={(message: string) => setError(message)}
+          onError={onError}
           weight={null}
         ></Weight>
       ) : (
         <StyledPlusIcon
-          onClick={(): void => {
-            setBlankWeightVisible(true);
-          }}
+          onClick={() => setBlankWeightVisible(true)}
         ></StyledPlusIcon>
       )}
     </WeightsContainer>

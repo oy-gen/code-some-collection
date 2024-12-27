@@ -9,6 +9,11 @@ export interface BalanceScaleState extends ScaleData {
   setBalance: (scaleData: ScaleData) => void;
   resetScale: () => void;
   setError: (message: string | null) => void;
+  setPanWeight: (
+    leftPanWeights: number[],
+    rightPanWeights: number[],
+    heavierSide: HeavierSideEnum,
+  ) => void;
 }
 
 export interface ScaleData {
@@ -39,4 +44,5 @@ export const balanceScaleInitialState: BalanceScaleState = {
   resetScale: () => {},
   setBalance: () => {},
   setError: () => {},
+  setPanWeight: () => {},
 };

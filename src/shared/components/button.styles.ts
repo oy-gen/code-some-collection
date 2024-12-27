@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-export const Button = styled.button<{ $isError?: boolean }>`
+export const Button = styled.button<{ $isWarningColor?: boolean }>`
   padding: 1rem;
   font-weight: bold;
   border: none;
   background-color: ${(props) =>
-    props.$isError
+    props.$isWarningColor
       ? props.theme.colors.backgroundError
       : props.theme.colors.primary};
   color: white;

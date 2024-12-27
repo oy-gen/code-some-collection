@@ -63,5 +63,16 @@ export const createBalanceScaleSlice: StateCreator<
           leftScalePanSum: balanceScaleInitialState.leftScalePanSum,
         },
       })),
+    setPanWeight: (leftPanWeights, rightPanWeights, heavierSide) =>
+      set((state) => ({
+        balanceScale: {
+          ...state.balanceScale,
+          leftScalePan: leftPanWeights,
+          rightScalePan: rightPanWeights,
+          heavierSide: heavierSide,
+          leftScalePanSum: leftPanWeights[0],
+          rightScalePanSum: rightPanWeights[0],
+        },
+      })),
   },
 });
