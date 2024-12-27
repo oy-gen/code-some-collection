@@ -4,7 +4,7 @@ import {
 } from "../../../shared/store/use-store.ts";
 
 import styled from "styled-components";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Description } from "../../../shared/components/description.styles.ts";
 import { Button } from "../../../shared/components/button.styles.ts";
 import { ScaleData } from "../store/balance-scale-state.ts";
@@ -27,17 +27,19 @@ export const BalanceScalePage: React.FC = () => {
   } = useStore(selectBalanceScaleSlice);
   const [shouldReset, setShouldReset] = useState<boolean>(false);
 
-  const calculateBalance = () => {
+  useEffect(() => {
+    if (leftScalePanSum === rightScalePanSum) {
+      setShouldReset(true);
+    } else {
+      setShouldReset(false);
+    }
+  }, [weights, leftScalePanSum, rightScalePanSum]);
+
+  const balanceScale = () => {
     if (shouldReset) {
       resetScale();
       setShouldReset(false);
     } else {
-      if (leftScalePanSum === rightScalePanSum) {
-        setError("scale is already balanced, add weights or reset");
-        setShouldReset(true);
-        return;
-      }
-
       const balancedResult: ScaleData | null = balanceScaleRule(
         leftScalePan,
         rightScalePan,
@@ -45,11 +47,12 @@ export const BalanceScalePage: React.FC = () => {
       );
 
       if (balancedResult === null) {
-        setError("no solution found");
+        setError("no solution found, add new weights to bank or reset");
         setShouldReset(true);
         return;
       }
       setBalance(balancedResult);
+      setShouldReset(true);
     }
   };
 
@@ -59,23 +62,22 @@ export const BalanceScalePage: React.FC = () => {
       <Description>
         The infamous Scale Balance Challenge! This solution dynamically
         calculates the balance between two sides using the available weights and
-        intelligently assigns them to the correct scale pan. It also selects the
-        simplest possible solution after evaluating all potential
-        configurations. Try it out! Add or remove weights from the stock to test
-        the algorithm.
+        intelligently assigns them to the correct scale pan. After evaluating
+        all potential configurations in a base-3 system ( left/right/none ) for
+        each weight, it selects the simplest possible solution. Try it out!
+        Change, add or remove weights the to test the algorithm.
       </Description>
-      <Scale />
+      <Scale onError={setError} />
       <ButtonContainer>
-        {" "}
         {error ? (
           <Error />
         ) : (
-          <Button onClick={calculateBalance} $isError={shouldReset}>
-            {shouldReset ? "reset" : "calculate"}
+          <Button onClick={balanceScale} $isWarningColor={shouldReset}>
+            {shouldReset ? "reset scale" : "balance scale"}
           </Button>
         )}
       </ButtonContainer>
-      <AvailableWeights onWeightsChanged={() => setShouldReset(false)} />
+      <AvailableWeights onError={setError} />
     </>
   );
 };
