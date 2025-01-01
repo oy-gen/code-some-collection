@@ -64,17 +64,17 @@ export const Weight: React.FC<Props> = ({
 };
 
 const WeightIcon = styled.div`
-  position: relative;
-  width: 5.5rem;
-  height: 5.5rem;
-  font-size: 1.5rem;
-  font-weight: bolder;
-  text-align: center;
-  align-content: center;
-  padding-top: 1rem;
-  background-image: url("/src/assets/weight.svg");
-  background-position: center;
-  background-size: contain;
+    position: relative;
+    width: 5.5rem;
+    height: 5.5rem;
+    font-size: 1.5rem;
+    font-weight: bolder;
+    text-align: center;
+    align-content: center;
+    padding-top: 1rem;
+    background-image: url("/frontend/srcntend/src/assets/weight.svg");
+    background-position: center;
+    background-size: contain;
 `;
 
 const WeightInput = styled.input<{ value: string }>`

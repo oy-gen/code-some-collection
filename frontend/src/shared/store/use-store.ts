@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
-import { SmartHighlightingSearchStateAware } from "../../features/smart-highlighting-search/store/smart-highlighting-search-state";
+import { SmartHighlightingSearchStateAware } from "../../features/smart-highlighting-search/store/smart-highlighting-search-state.ts";
 import { BalanceScaleStateAware } from "../../features/balance-scale/store/balance-scale-state.ts";
 import { createSmartHighlightingSearchSlice } from "../../features/smart-highlighting-search/store/smart-highlighting-search-slice.ts";
 import { createBalanceScaleSlice } from "../../features/balance-scale/store/balance-scale-slice.ts";
