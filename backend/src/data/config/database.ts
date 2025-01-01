@@ -8,7 +8,7 @@ export const connectDB = async () => {
       "Pinged your deployment. You successfully connected to MongoDB!",
     );
   } catch (error) {
-    throw new Error("Error connecting tp MongoDB:" + error);
+    console.error("Error connecting tp MongoDB:", error);
   }
 };
 
@@ -16,6 +16,6 @@ export const disconnectDB = async () => {
   try {
     await mongoose.disconnect();
   } catch (error) {
-    throw new Error("Error disconnecting from MongoDB:" + error);
+    console.error("Error disconnecting from MongoDB:", error);
   }
 };

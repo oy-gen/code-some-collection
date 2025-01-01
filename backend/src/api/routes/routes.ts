@@ -10,12 +10,12 @@ router.get(
 
 router.get(
   "/api/insure-numbers/get-matching-insure-numbers/:searchString",
-  InsureNumbersMiddleware.validateSearchStringParam,
+  InsureNumbersMiddleware.validateParamString,
   InsureNumbersHandler.handleGetMatchingInsureNumbers,
 );
 router.post(
   "/api/insure-numbers/save-new-insure-number/:insureNumber",
-  InsureNumbersMiddleware.validateInsureNumberParam,
+  InsureNumbersMiddleware.validateParamString,
   InsureNumbersHandler.handleSaveNewInsureNumber,
 );
 
