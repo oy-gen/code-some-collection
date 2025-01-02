@@ -4,7 +4,7 @@ import React from "react";
 export const SearchResults: React.FC<{ searchResults: string[] }> = ({
   searchResults,
 }) => (
-  <>
+  <div>
     <h4>Search result:</h4>
     <ul>
       {searchResults.length && searchResults.length > 0 ? (
@@ -18,5 +18,5 @@ export const SearchResults: React.FC<{ searchResults: string[] }> = ({
         <p>No match found</p>
       )}
     </ul>
-  </>
+  </div>
 );

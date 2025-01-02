@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import {
   selectSmartHighlightingSearch,
@@ -10,7 +10,6 @@ import { Description } from "../../../shared/components/description.styles.ts";
 import { Button } from "../../../shared/components/button.styles.ts";
 import { useGetAllInsureNumbers } from "../business/hooks/use-get-all-insure-numbers.ts";
 import { addInsureNumberToDb } from "../business/services/insure-number-service.ts";
-import { InsureNumber } from "../api/models/insure-number.model.ts";
 import useGetSearchResults from "../business/hooks/use-get-search-results.ts";
 import { SearchResults } from "./components/search-results.tsx";
 import { AvailableEntries } from "./components/available-entries.tsx";
@@ -25,28 +24,29 @@ export const SmartHighlightingSearchPage: React.FC = () => {
   useGetAllInsureNumbers();
   useGetSearchResults(searchValue);
 
-  async function onSearchValueChange(
-    event: React.ChangeEvent<HTMLInputElement>,
-  ): Promise<void> {
-    const sanitizedValue: string = DOMPurify.sanitize(event.target.value);
-    setSearchValue(sanitizedValue);
-  }
+  const handleSearchValueChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const sanitizedValue = DOMPurify.sanitize(event.target.value);
+      setSearchValue(sanitizedValue);
+    },
+    [],
+  );
 
-  function onAddInsureNumberValueChange(
-    event: React.ChangeEvent<HTMLInputElement>,
-  ): void {
-    const sanitizedValue: string = DOMPurify.sanitize(event.target.value);
-    setNewInsureNumber(sanitizedValue);
-  }
+  const handleAddInsureNumberValueChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const sanitizedValue = DOMPurify.sanitize(event.target.value);
+      setNewInsureNumber(sanitizedValue);
+    },
+    [],
+  );
 
-  async function handleAddNumberClick(): Promise<void> {
-    const addedInsureNumber: InsureNumber | null =
-      await addInsureNumberToDb(newInsureNumber);
+  const handleAddNumberClick = useCallback(async () => {
+    const addedInsureNumber = await addInsureNumberToDb(newInsureNumber);
     if (addedInsureNumber) {
       addInsureNumberToStore(addedInsureNumber);
     }
     setNewInsureNumber("");
-  }
+  }, [newInsureNumber, addInsureNumberToStore]);
 
   return (
     <>
@@ -67,16 +67,16 @@ export const SmartHighlightingSearchPage: React.FC = () => {
         <Input
           placeholder="search numbers"
           value={searchValue}
-          onChange={onSearchValueChange}
+          onChange={handleSearchValueChange}
         ></Input>
         <InputButtonWrapper>
           <Input
             placeholder="add numbers"
             value={newInsureNumber}
             $width={"narrow"}
-            onChange={onAddInsureNumberValueChange}
+            onChange={handleAddInsureNumberValueChange}
           ></Input>
-          <Button onClick={() => handleAddNumberClick()}>add</Button>
+          <Button onClick={handleAddNumberClick}>add</Button>
         </InputButtonWrapper>
         <SearchResults searchResults={searchResults} />
         <AvailableEntries insureNumbers={insureNumbers} />
