@@ -5,7 +5,7 @@ This is a collection of different challenging features.
 - Frontend tech-stack: React with Zustand and Styled-Components
 - Backend tech-stack: Node.Js with Express and MongoDB
 
-## Scale Balancing Algorithm
+## Scale Balancing Algorithm - Frontend
 
 The infamous Scale Balance Challenge! This solution dynamically calculates the balance between two sides using the available weights and intelligently assigns them to the correct scale pan. After evaluating all potential configurations in a base-3 system ( left/right/none ) for each weight, it selects the simplest possible solution. Try it out! Change, add or remove weights the to test the algorithm.
 
@@ -17,7 +17,7 @@ The infamous Scale Balance Challenge! This solution dynamically calculates the b
 
 
 
-## Smart Highlighting in Searches
+## Smart Highlighting in Searches - Fullstack
 
 A user-friendly search functionality designed for the search of complex strings, such as contract or registration numbers, which may include spaces or special-character separators like '-', '/', or '.'. The search normalizes these inputs into an alphanumeric format, allowing users to find results without worrying about exact formatting.
 The challenge was to precisely highlight only the consecutive parts of the search, ignoring all separators. Try it out! Search for 'a-b/c','cba', or 'ccc'. Or add a new number.
