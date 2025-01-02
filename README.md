@@ -7,7 +7,7 @@ This is a collection of different challenging features.
 
 ## Scale Balancing Algorithm - Frontend
 
-The infamous Scale Balance Challenge! This solution dynamically calculates the balance between two sides using the available weights and intelligently assigns them to the correct scale pan. After evaluating all potential configurations in a base-3 system ( left/right/none ) for each weight, it selects the simplest possible solution. Try it out! Change, add or remove weights the to test the algorithm.
+The infamous Scale Balance Challenge! This solution dynamically calculates the balance between two sides using the available weights and intelligently assigns them to the correct scale pan. After evaluating all potential configurations in a base-3 system ( left/right/none ) for each weight, it selects the simplest possible solution. Try it out! Change, add or remove weights to test the algorithm.
 
 ![image](https://github.com/user-attachments/assets/e87d0be7-c636-4e56-b66a-07261182ee75)
 
