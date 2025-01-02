@@ -1,13 +1,7 @@
-import { highlightSearchResultsRule } from "./highlight-search-results-rule.ts";
+import { highlightSearchResultsRule } from "./highlight-search-results-rule";
 
 describe("highlightSearchResultsRule", () => {
   const testCases = [
-    {
-      description: "returns null when matches is null",
-      searchValue: "search",
-      matches: null,
-      expected: null,
-    },
     {
       description: "returns null when matches is an empty array",
       searchValue: "search",

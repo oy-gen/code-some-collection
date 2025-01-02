@@ -8,28 +8,44 @@ import DOMPurify from "dompurify";
 import { Input } from "../../../shared/components/input.styles.ts";
 import { Description } from "../../../shared/components/description.styles.ts";
 import { Button } from "../../../shared/components/button.styles.ts";
-import useFindSearchResultsAndHighlight from "../business/hooks/use-find-results-and-highlight.ts";
+import { useGetAllInsureNumbers } from "../business/hooks/use-get-all-insure-numbers.ts";
+import { addInsureNumberToDb } from "../business/services/insure-number-service.ts";
+import { InsureNumber } from "../api/models/insure-number.model.ts";
+import useGetSearchResults from "../business/hooks/use-get-search-results.ts";
+import { SearchResults } from "./components/search-results.tsx";
+import { AvailableEntries } from "./components/available-entries.tsx";
 
 export const SmartHighlightingSearchPage: React.FC = () => {
   const [searchValue, setSearchValue] = useState<string>("");
-  const [newContractNumber, setNewContractNumber] = useState<string>("");
-  useFindSearchResultsAndHighlight(searchValue);
-
-  const { contractNumbers, searchResults, addContractNumber } = useStore(
+  const [newInsureNumber, setNewInsureNumber] = useState<string>("");
+  const { insureNumbers, searchResults, addInsureNumberToStore } = useStore(
     selectSmartHighlightingSearch,
   );
 
-  function handleAddNumber(): void {
-    const sanitizedValue = DOMPurify.sanitize(newContractNumber);
-    addContractNumber(sanitizedValue);
-    setNewContractNumber("");
+  useGetAllInsureNumbers();
+  useGetSearchResults(searchValue);
+
+  async function onSearchValueChange(
+    event: React.ChangeEvent<HTMLInputElement>,
+  ): Promise<void> {
+    const sanitizedValue: string = DOMPurify.sanitize(event.target.value);
+    setSearchValue(sanitizedValue);
   }
 
-  function handleSearchValueChange(
+  function onAddInsureNumberValueChange(
     event: React.ChangeEvent<HTMLInputElement>,
   ): void {
-    const sanitizedValue = DOMPurify.sanitize(event.target.value);
-    setSearchValue(sanitizedValue);
+    const sanitizedValue: string = DOMPurify.sanitize(event.target.value);
+    setNewInsureNumber(sanitizedValue);
+  }
+
+  async function handleAddNumberClick(): Promise<void> {
+    const addedInsureNumber: InsureNumber | null =
+      await addInsureNumberToDb(newInsureNumber);
+    if (addedInsureNumber) {
+      addInsureNumberToStore(addedInsureNumber);
+    }
+    setNewInsureNumber("");
   }
 
   return (
@@ -43,45 +59,27 @@ export const SmartHighlightingSearchPage: React.FC = () => {
         find results without worrying about exact formatting.
         <br></br>
         The challenge was to precisely highlight only the consecutive parts of
-        the search, ignoring all separators. Try it out! Search for{" "}
-        <strong>'a-b/c'</strong>, <strong>'cba'</strong>, or{" "}
+        the search, ignoring all separators. Try it out! Search for
+        <strong>'a-b/c'</strong>, <strong>'cba'</strong>, or
         <strong>'ccc'</strong>. Or add a new number.
       </Description>
       <ResultWrapper>
         <Input
           placeholder="search numbers"
           value={searchValue}
-          onChange={handleSearchValueChange}
+          onChange={onSearchValueChange}
         ></Input>
         <InputButtonWrapper>
           <Input
             placeholder="add numbers"
-            value={newContractNumber}
+            value={newInsureNumber}
             $width={"narrow"}
-            onChange={(event) => setNewContractNumber(event.target.value)}
+            onChange={onAddInsureNumberValueChange}
           ></Input>
-          <Button onClick={() => handleAddNumber()}>add</Button>
+          <Button onClick={() => handleAddNumberClick()}>add</Button>
         </InputButtonWrapper>
-        <div>
-          <h4>Search result:</h4>
-          {searchResults ? (
-            searchResults.map((result) => (
-              <HighlightedMatch
-                key={result}
-                dangerouslySetInnerHTML={{ __html: result }}
-              ></HighlightedMatch>
-            ))
-          ) : (
-            <p>no match found</p>
-          )}
-        </div>
-        <div>
-          <h4>Available entries:</h4>
-          {contractNumbers &&
-            contractNumbers.map((item, index) => (
-              <p key={`${item}-${index}`}>{item}</p>
-            ))}
-        </div>
+        <SearchResults searchResults={searchResults} />
+        <AvailableEntries insureNumbers={insureNumbers} />
       </ResultWrapper>
     </>
   );
@@ -91,13 +89,6 @@ const ResultWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
-`;
-
-const HighlightedMatch = styled.p`
-  .highlight {
-    color: ${({ theme }) => theme.colors.warning};
-    font-weight: bold;
-  }
 `;
 
 const InputButtonWrapper = styled.div`

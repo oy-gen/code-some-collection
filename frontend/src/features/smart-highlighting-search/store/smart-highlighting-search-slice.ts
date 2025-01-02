@@ -1,9 +1,7 @@
 import { StateCreator } from "zustand";
 import { AppState } from "../../../shared/store/use-store.ts";
-import {
-  smartHighlightingSearchInitialState,
-  SmartHighlightingSearchStateAware,
-} from "./smart-highlighting-search-state.ts";
+import { SmartHighlightingSearchStateAware } from "./smart-highlighting-search-state.ts";
+import { InsureNumber } from "../api/models/insure-number.model.ts";
 
 export const createSmartHighlightingSearchSlice: StateCreator<
   AppState,
@@ -12,25 +10,32 @@ export const createSmartHighlightingSearchSlice: StateCreator<
   SmartHighlightingSearchStateAware
 > = (set, get, _store) => ({
   smartHighlightingSearch: {
-    contractNumbers: smartHighlightingSearchInitialState,
-    searchResults: null,
-    addContractNumber: (newNumber: string) => {
-      const contractNumbers = get().smartHighlightingSearch.contractNumbers;
-      if (newNumber.trim() === "") return;
-      if (contractNumbers && !contractNumbers.includes(newNumber)) {
+    insureNumbers: [],
+    searchResults: [],
+    addInsureNumberToStore: (newNumber: InsureNumber) => {
+      const insureNumbers = get().smartHighlightingSearch.insureNumbers;
+      if (insureNumbers && !insureNumbers.includes(newNumber)) {
         set((state) => ({
           smartHighlightingSearch: {
             ...state.smartHighlightingSearch,
-            contractNumbers: [newNumber, ...contractNumbers],
+            insureNumbers: [newNumber, ...insureNumbers],
           },
         }));
       }
     },
-    setSearchResults: (matches: string[] | null) => {
+    setSearchResultsToStore: (results: string[]) => {
       set((state) => ({
         smartHighlightingSearch: {
           ...state.smartHighlightingSearch,
-          searchResults: matches,
+          searchResults: results,
+        },
+      }));
+    },
+    setInsureNumbersToStore: (insureNumbers: InsureNumber[]) => {
+      set((state) => ({
+        smartHighlightingSearch: {
+          ...state.smartHighlightingSearch,
+          insureNumbers: insureNumbers,
         },
       }));
     },
