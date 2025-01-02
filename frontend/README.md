@@ -2,7 +2,8 @@
 
 This is a collection of different challenging features.
 
-- React with Zustand and Styled-Components
+- Frontend tech-stack: React with Zustand and Styled-Components
+- Backend tech-stack: Node.Js with Express and MongoDB
 
 ## Scale Balancing Algorithm
 
