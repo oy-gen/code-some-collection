@@ -1,13 +1,12 @@
 import axios, { AxiosResponse } from "axios";
-import { InsureNumber } from "../models/insure-number.model.ts";
 import { insureNumbersDummyData } from "../consts/insure-numbers-dummy-data.ts";
 
 // will be made variable
 const baseUrl = "http://localhost:5000/";
 
-export const getAllInsureNumbersFromDb = async (): Promise<InsureNumber[]> => {
+export const getAllInsureNumbersFromDb = async (): Promise<string[]> => {
   try {
-    const response: AxiosResponse<InsureNumber[]> = await axios.get(
+    const response: AxiosResponse<string[]> = await axios.get(
       baseUrl + "api/insure-numbers/get-all-insure-numbers",
     );
     return response.data;
@@ -22,16 +21,13 @@ export const getAllInsureNumbersFromDb = async (): Promise<InsureNumber[]> => {
 
 export const getMatchingInsureNumbersFromDb = async (
   searchString: string,
-): Promise<InsureNumber[]> => {
+): Promise<string[]> => {
   try {
     const url: string =
       baseUrl +
       "api/insure-numbers/get-matching-insure-numbers/" +
       encodeURIComponent(searchString);
-    console.log({ url });
-    const response: AxiosResponse<InsureNumber[]> = await axios.get(url);
-    console.log({ response });
-
+    const response: AxiosResponse<string[]> = await axios.get(url);
     return response.data;
   } catch (error) {
     console.error(
@@ -44,13 +40,13 @@ export const getMatchingInsureNumbersFromDb = async (
 
 export const postNewInsureNumberToDb = async (
   insureNumber: string,
-): Promise<InsureNumber | null> => {
+): Promise<string | null> => {
   try {
     const url: string =
       baseUrl +
       "api/insure-numbers/save-new-insure-number/" +
       encodeURIComponent(insureNumber);
-    const response: AxiosResponse<InsureNumber> = await axios.post(url);
+    const response: AxiosResponse<string> = await axios.post(url);
     return response.data;
   } catch (error) {
     console.error("Error while saving new insure number in DB.", error);

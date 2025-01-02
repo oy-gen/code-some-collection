@@ -12,7 +12,6 @@ export const highlightSearchResultsRule = (
   if (normalizedSearchValue === "") {
     return [];
   }
-
   return searchResults.map((result) => {
     const normalizedMatch = result.replace(nonAlphaNumericRegExp, "");
     const matchStartIndex = normalizedMatch

@@ -1,7 +1,6 @@
 import { StateCreator } from "zustand";
 import { AppState } from "../../../shared/store/use-store.ts";
 import { SmartHighlightingSearchStateAware } from "./smart-highlighting-search-state.ts";
-import { InsureNumber } from "../api/models/insure-number.model.ts";
 
 export const createSmartHighlightingSearchSlice: StateCreator<
   AppState,
@@ -12,7 +11,7 @@ export const createSmartHighlightingSearchSlice: StateCreator<
   smartHighlightingSearch: {
     insureNumbers: [],
     searchResults: [],
-    addInsureNumberToStore: (newNumber: InsureNumber) => {
+    addInsureNumberToStore: (newNumber: string) => {
       const insureNumbers = get().smartHighlightingSearch.insureNumbers;
       if (insureNumbers && !insureNumbers.includes(newNumber)) {
         set((state) => ({
@@ -31,7 +30,7 @@ export const createSmartHighlightingSearchSlice: StateCreator<
         },
       }));
     },
-    setInsureNumbersToStore: (insureNumbers: InsureNumber[]) => {
+    setInsureNumbersToStore: (insureNumbers: string[]) => {
       set((state) => ({
         smartHighlightingSearch: {
           ...state.smartHighlightingSearch,

@@ -5,7 +5,6 @@ import {
   selectSmartHighlightingSearch,
   useStore,
 } from "../../../../shared/store/use-store.ts";
-import { InsureNumber } from "../../api/models/insure-number.model.ts";
 
 export default function useGetSearchResults(searchValue: string): void {
   const { setSearchResultsToStore } = useStore(selectSmartHighlightingSearch);
@@ -16,15 +15,12 @@ export default function useGetSearchResults(searchValue: string): void {
       return;
     }
     const fetchAndHighlight = async () => {
-      const matches: InsureNumber[] =
+      const matches: string[] =
         await getMatchingInsureNumbersFromDb(searchValue);
-      const matchedInsureNumberStrings: string[] = matches.map(
-        (match) => match.insureNumber,
-      );
 
       const highlightedResults: string[] = highlightSearchResultsRule(
         searchValue,
-        matchedInsureNumberStrings,
+        matches,
       );
 
       setSearchResultsToStore(highlightedResults);
