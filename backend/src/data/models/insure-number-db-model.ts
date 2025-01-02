@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import { InsureNumberInterface } from "./insure-number.interface";
 
 const insureNumberSchema: Schema = new Schema(
   {
@@ -8,7 +9,7 @@ const insureNumberSchema: Schema = new Schema(
   { collection: "insureNumbers" },
 ).index({ normalizedInsureNumber: 1 });
 
-export const InsureNumberDbModel = mongoose.model(
+export const InsureNumberDbModel = mongoose.model<InsureNumberInterface>(
   "InsureNumber",
   insureNumberSchema,
 );

@@ -1,23 +1,23 @@
 import { InsureNumberDbModel } from "../models/insure-number-db-model";
-import { InsureNumber } from "../../business/interfaces/insure.number";
+import { InsureNumberInterface } from "../models/insure-number.interface";
 
 export class InsureNumbersRepository {
-  public static async getAll(): Promise<InsureNumber[]> {
-    return InsureNumberDbModel.find().lean().select("-_id");
+  public static async getAll(): Promise<InsureNumberInterface[]> {
+    return InsureNumberDbModel.find().lean().select("insureNumber -_id");
   }
 
   public static async findBySearchString(
     normalizedString: string,
-  ): Promise<InsureNumber[]> {
+  ): Promise<InsureNumberInterface[]> {
     return InsureNumberDbModel.find({
       normalizedInsureNumber: { $regex: normalizedString },
     })
       .lean()
-      .select("-_id");
+      .select("insureNumber -_id");
   }
 
   public static async saveNewInsureNumber(
-    insureNumberObject: InsureNumber,
+    insureNumberObject: InsureNumberInterface,
   ): Promise<void> {
     const newInsureNumber = new InsureNumberDbModel(insureNumberObject);
     await newInsureNumber.save();

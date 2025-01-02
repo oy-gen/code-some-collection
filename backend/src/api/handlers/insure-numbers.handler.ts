@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { InsureNumbersQueryHandler } from "../../business/query-handlers/insure-numbers.query-handler";
-import { InsureNumber } from "../../business/interfaces/insure.number";
+import { InsureNumberInterface } from "../../data/models/insure-number.interface";
 import { InsureNumbersCommandHandler } from "../../business/command-handlers/insure-numbers.command-handler";
 
 export class InsureNumbersHandler {
@@ -9,7 +9,7 @@ export class InsureNumbersHandler {
     res: Response,
   ): Promise<void> {
     try {
-      const result: InsureNumber[] =
+      const result: string[] =
         await InsureNumbersQueryHandler.executeGetMatchingInsureNumbers(
           req.params.searchString,
         );
@@ -23,7 +23,7 @@ export class InsureNumbersHandler {
     res: Response,
   ): Promise<void> {
     try {
-      const result: InsureNumber[] =
+      const result: string[] =
         await InsureNumbersQueryHandler.executeGetAllInsureNumbers();
       res.status(200).json(result);
     } catch (error) {
@@ -36,7 +36,7 @@ export class InsureNumbersHandler {
     res: Response,
   ): Promise<void> {
     try {
-      const savedInsureNumber: InsureNumber =
+      const savedInsureNumber: string =
         await InsureNumbersCommandHandler.executeSaveNewInsureNumber(
           req.params.insureNumber,
         );
