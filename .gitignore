@@ -7,7 +7,7 @@ backend/dist/
 frontend/dist/
 
 # Environment files
-*.env
+*.env*
 
 # IDE settings
 .idea/

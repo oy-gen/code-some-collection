@@ -1,13 +1,12 @@
 import axios, { AxiosResponse } from "axios";
 import { insureNumbersDummyData } from "../consts/insure-numbers-dummy-data.ts";
 
-// will be made variable
-const baseUrl = "http://localhost:5000/";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 export const getAllInsureNumbersFromDb = async (): Promise<string[]> => {
   try {
     const response: AxiosResponse<string[]> = await axios.get(
-      baseUrl + "api/insure-numbers/get-all-insure-numbers",
+      apiUrl + "/insure-numbers/get-all-insure-numbers",
     );
     return response.data;
   } catch (error) {
@@ -24,8 +23,8 @@ export const getMatchingInsureNumbersFromDb = async (
 ): Promise<string[]> => {
   try {
     const url: string =
-      baseUrl +
-      "api/insure-numbers/get-matching-insure-numbers/" +
+      apiUrl +
+      "/insure-numbers/get-matching-insure-numbers/" +
       encodeURIComponent(searchString);
     const response: AxiosResponse<string[]> = await axios.get(url);
     return response.data;
@@ -43,8 +42,8 @@ export const postNewInsureNumberToDb = async (
 ): Promise<string | null> => {
   try {
     const url: string =
-      baseUrl +
-      "api/insure-numbers/save-new-insure-number/" +
+      apiUrl +
+      "/insure-numbers/save-new-insure-number/" +
       encodeURIComponent(insureNumber);
     const response: AxiosResponse<string> = await axios.post(url);
     return response.data;
