@@ -3,20 +3,22 @@ import React from "react";
 
 export const SearchResults: React.FC<{ searchResults: string[] }> = ({
   searchResults,
-}) => (
-  <div>
-    <h4>Search result:</h4>
-    <ul>
-      {searchResults.length && searchResults.length > 0 ? (
-        searchResults.map((item, index) => (
-          <ListItem
-            key={`${item}-${index}`}
-            dangerouslySetInnerHTML={{ __html: item }}
-          ></ListItem>
-        ))
-      ) : (
-        <p>No match found</p>
-      )}
-    </ul>
-  </div>
-);
+}) => {
+  return (
+    <div>
+      <h4>Search result:</h4>
+      <ul>
+        {searchResults.length && searchResults.length > 0 ? (
+          searchResults.map((item, index) => (
+            <ListItem
+              key={`${item}-${index}`}
+              dangerouslySetInnerHTML={{ __html: item }}
+            ></ListItem>
+          ))
+        ) : (
+          <p>No match found</p>
+        )}
+      </ul>
+    </div>
+  );
+};
