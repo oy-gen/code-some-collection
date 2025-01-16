@@ -7,9 +7,11 @@ import {
 import { Weight } from "./weight.tsx";
 import PlusIcon from "../../../../../public/assets/plus.svg?react";
 
-export const AvailableWeights: React.FC<{
+interface Props {
   onError: (message: string) => void;
-}> = ({ onError }) => {
+}
+
+export const AvailableWeights: React.FC<Props> = ({ onError }) => {
   const { weights, addWeightToStock, removeWeightFromStock } = useStore(
     selectBalanceScaleSlice,
   );
@@ -81,7 +83,6 @@ const WeightsDescription = styled.p`
 const StyledPlusIcon = styled(PlusIcon)`
   width: 3rem;
   height: 3rem;
-
   cursor: pointer;
   padding-left: 0.5rem;
   &:hover {

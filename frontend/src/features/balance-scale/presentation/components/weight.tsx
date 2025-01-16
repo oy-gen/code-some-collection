@@ -1,13 +1,14 @@
 import React, { useId, useState } from "react";
 import styled from "styled-components";
 
-type Props = {
+interface Props {
   weight: number | null;
   showRemove?: boolean;
   onAddWeight?: (weight: number) => void;
   onRemoveWeight?: (weight: number) => void;
   onError?: (message: string) => void;
-};
+}
+
 export const Weight: React.FC<Props> = ({
   weight,
   showRemove = false,

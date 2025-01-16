@@ -1,9 +1,11 @@
 import { ListItem } from "./list-items.styles.ts";
 import React from "react";
 
-export const SearchResults: React.FC<{ searchResults: string[] }> = ({
-  searchResults,
-}) => {
+interface Props {
+  searchResults: string[];
+}
+
+export const SearchResults: React.FC<Props> = ({ searchResults }) => {
   return (
     <div>
       <h4>Search result:</h4>
