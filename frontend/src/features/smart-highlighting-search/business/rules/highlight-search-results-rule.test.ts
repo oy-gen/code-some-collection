@@ -3,23 +3,23 @@ import { highlightSearchResultsRule } from "./highlight-search-results-rule";
 describe("highlightSearchResultsRule", () => {
   const testCases = [
     {
-      description: "returns null when matches is an empty array",
+      description: "returns [] when matches is an empty array",
       searchValue: "search",
       matches: [],
-      expected: null,
+      expected: [],
     },
     {
-      description: "returns null when searchValue is an empty string",
+      description: "returns [] when searchValue is an empty string",
       searchValue: "",
       matches: ["match1", "match2"],
-      expected: null,
+      expected: [],
     },
     {
       description:
-        "returns null when searchValue has only non-alphanumeric characters",
+        "returns [] when searchValue has only non-alphanumeric characters",
       searchValue: "!!!",
       matches: ["match1", "match2"],
-      expected: null,
+      expected: [],
     },
     {
       description:

@@ -5,17 +5,14 @@ import {
 } from "../../../../shared/store/use-store.ts";
 import { useEffect } from "react";
 
-export const useGetAllInsureNumbers = (): void => {
+export const useGetAllInsureNumbers = (): string[] => {
   const { insureNumbers, setInsureNumbersToStore } = useStore(
     selectSmartHighlightingSearch,
   );
   useEffect(() => {
     if (insureNumbers.length === 0) {
-      const fetchData = async () => {
-        const data = await getAllInsureNumbersFromDb();
-        setInsureNumbersToStore(data);
-      };
-      fetchData();
+      getAllInsureNumbersFromDb().then((data) => setInsureNumbersToStore(data));
     }
   }, [insureNumbers, setInsureNumbersToStore]);
+  return insureNumbers;
 };
