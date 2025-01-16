@@ -1,5 +1,5 @@
-import { HeavierSideEnum, ScaleData } from "../../store/balance-scale-state.ts";
-import { balanceScaleRule } from "./balance-scale-rule.ts";
+import { HeavierSideEnum, ScaleData } from "../../store/balance-scale-state";
+import { balanceScaleRule } from "./balance-scale-rule";
 
 describe("balanceScaleRule", () => {
   const testCases: {

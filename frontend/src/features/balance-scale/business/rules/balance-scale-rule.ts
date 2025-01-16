@@ -1,5 +1,5 @@
-import { HeavierSideEnum, ScaleData } from "../../store/balance-scale-state.ts";
-import { getTotalPanWeightRule } from "./get-total-pan-weight-rule.ts";
+import { getTotalPanWeightRule } from "./get-total-pan-weight-rule";
+import { HeavierSideEnum, ScaleData } from "../../store/balance-scale-state";
 
 export function balanceScaleRule(
   leftScalePan: number[],
@@ -20,6 +20,7 @@ export function balanceScaleRule(
   // each weight can have 3 possible placements: left, right, unused
   // in the outer loop we iterate through all possible combinations
   // Example: With 4 weights, 3 positions each (3*3*3*3) there are 81 possible combinations
+
   const possibleCombinationsCount: number = Math.pow(3, weights.length);
   for (
     let combinationIndex = 1;

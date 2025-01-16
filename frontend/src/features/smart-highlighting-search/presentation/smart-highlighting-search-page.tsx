@@ -4,11 +4,11 @@ import DOMPurify from "dompurify";
 import { Input } from "../../../shared/components/input.styles.ts";
 import { Description } from "../../../shared/components/description.styles.ts";
 import { Button } from "../../../shared/components/button.styles.ts";
-import { useGetAllInsureNumbers } from "../business/hooks/use-get-all-insure-numbers.ts";
 import useGetSearchResults from "../business/hooks/use-get-search-results.ts";
 import { SearchResults } from "./components/search-results.tsx";
 import { AvailableEntries } from "./components/available-entries.tsx";
 import { useAddInsureNumber } from "../business/hooks/use-add-insure-number.ts";
+import useGetAllInsureNumbers from "../business/hooks/use-get-all-insure-numbers.ts";
 
 export const SmartHighlightingSearchPage: React.FC = () => {
   const [searchValue, setSearchValue] = useState<string>("");

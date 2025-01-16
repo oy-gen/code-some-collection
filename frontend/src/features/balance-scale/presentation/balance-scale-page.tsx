@@ -7,52 +7,32 @@ import styled from "styled-components";
 import React, { useEffect, useState } from "react";
 import { Description } from "../../../shared/components/description.styles.ts";
 import { Button } from "../../../shared/components/button.styles.ts";
-import { ScaleData } from "../store/balance-scale-state.ts";
-import { balanceScaleRule } from "../business/rules/balance-scale-rule.ts";
 import { Scale } from "./components/scale.tsx";
 import { AvailableWeights } from "./components/available-weights.tsx";
 import { Error } from "./components/error.tsx";
+import useBalanceScale from "../business/hooks/use-balance-scale.ts";
 
 export const BalanceScalePage: React.FC = () => {
-  const {
-    leftScalePan,
-    rightScalePan,
-    leftScalePanSum,
-    rightScalePanSum,
-    weights,
-    setBalance,
-    error,
-    setError,
-    resetScale,
-  } = useStore(selectBalanceScaleSlice);
   const [shouldReset, setShouldReset] = useState<boolean>(false);
+  const { leftScalePanSum, rightScalePanSum, error, setError, resetScale } =
+    useStore(selectBalanceScaleSlice);
+
+  const balanceScale = useBalanceScale();
 
   useEffect(() => {
-    if (leftScalePanSum === rightScalePanSum) {
+    if (leftScalePanSum === rightScalePanSum || error) {
       setShouldReset(true);
     } else {
       setShouldReset(false);
     }
-  }, [weights, leftScalePanSum, rightScalePanSum]);
+  }, [leftScalePanSum, rightScalePanSum, error]);
 
-  const balanceScale = () => {
+  const handleBalanceScale = (): void => {
     if (shouldReset) {
       resetScale();
       setShouldReset(false);
     } else {
-      const balancedResult: ScaleData | null = balanceScaleRule(
-        leftScalePan,
-        rightScalePan,
-        weights,
-      );
-
-      if (balancedResult === null) {
-        setError("no solution found, add new weights to bank or reset");
-        setShouldReset(true);
-        return;
-      }
-      setBalance(balancedResult);
-      setShouldReset(true);
+      balanceScale();
     }
   };
 
@@ -72,7 +52,7 @@ export const BalanceScalePage: React.FC = () => {
         {error ? (
           <Error />
         ) : (
-          <Button onClick={balanceScale} $isWarningColor={shouldReset}>
+          <Button onClick={handleBalanceScale} $isWarningColor={shouldReset}>
             {shouldReset ? "reset scale" : "balance scale"}
           </Button>
         )}

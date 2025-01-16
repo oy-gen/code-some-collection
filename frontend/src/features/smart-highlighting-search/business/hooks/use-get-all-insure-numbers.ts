@@ -3,9 +3,9 @@ import {
   selectSmartHighlightingSearch,
   useStore,
 } from "../../../../shared/store/use-store.ts";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
-export const useGetAllInsureNumbers = (): string[] => {
+export default function useGetAllInsureNumbers(): string[] {
   const { insureNumbers, setInsureNumbersToStore } = useStore(
     selectSmartHighlightingSearch,
   );
@@ -14,5 +14,5 @@ export const useGetAllInsureNumbers = (): string[] => {
       getAllInsureNumbersFromDb().then((data) => setInsureNumbersToStore(data));
     }
   }, [insureNumbers, setInsureNumbersToStore]);
-  return insureNumbers;
-};
+  return useMemo(() => insureNumbers, [insureNumbers]);
+}
