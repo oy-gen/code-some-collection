@@ -3,9 +3,11 @@ import styled from "styled-components";
 import { ScalePanContent } from "./scale-pan-content.tsx";
 import { ScalePanHeight } from "./scale-pan-height.tsx";
 
-export const Scale: React.FC<{
+interface Props {
   onError: (message: string) => void;
-}> = ({ onError }) => {
+}
+
+export const Scale: React.FC<Props> = ({ onError }) => {
   return (
     <ScaleContainer>
       <ScalePan>

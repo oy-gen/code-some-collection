@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useId, useState } from "react";
 import styled from "styled-components";
 
-type Props = {
+interface Props {
   weight: number | null;
   showRemove?: boolean;
   onAddWeight?: (weight: number) => void;
   onRemoveWeight?: (weight: number) => void;
   onError?: (message: string) => void;
-};
+}
+
 export const Weight: React.FC<Props> = ({
   weight,
   showRemove = false,
@@ -16,6 +17,7 @@ export const Weight: React.FC<Props> = ({
   onError = () => {},
 }) => {
   const [newWeight, setNewWeight] = useState<string>("");
+  const weightId = useId();
 
   const handleAddWeight = (): void => {
     const cleanedWeightString: string = newWeight.replace(/[^0-9.]/g, "");
@@ -49,6 +51,7 @@ export const Weight: React.FC<Props> = ({
       )}
       {weight === null ? (
         <WeightInput
+          id={weightId}
           value={newWeight}
           autoFocus
           onChange={(event) => setNewWeight(event.target.value)}

@@ -10,9 +10,9 @@ export const Error: React.FC = () => {
   const { error, setError } = useStore(selectBalanceScaleSlice);
   useEffect(() => {
     if (error) {
-      const timeout = setTimeout(() => setError(null), duration);
+      const timeoutId = setTimeout(() => setError(null), duration);
       return () => {
-        clearTimeout(timeout);
+        clearTimeout(timeoutId);
       };
     }
   }, [setError, error]);

@@ -6,9 +6,11 @@ import {
   useStore,
 } from "../../../../shared/store/use-store.ts";
 
-export const ScalePanHeight: React.FC<{
+interface Props {
   isLeftSide: boolean;
-}> = ({ isLeftSide }) => {
+}
+
+export const ScalePanHeight: React.FC<Props> = ({ isLeftSide }) => {
   const { heavierSide } = useStore(selectBalanceScaleSlice);
 
   return (

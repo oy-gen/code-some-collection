@@ -9,6 +9,7 @@ import { theme } from "./shared/styles/theme.ts";
 import { SmartHighlightingSearchPage } from "./features/smart-highlighting-search/presentation/smart-highlighting-search-page.tsx";
 import { BalanceScalePage } from "./features/balance-scale/presentation/balance-scale-page.tsx";
 import { StrictMode } from "react";
+import { ReactHooksDemoPage } from "./features/react-hooks-demo/presentation/react-hooks-demo-page.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -19,6 +20,7 @@ createRoot(document.getElementById("root")!).render(
           <Route element={<PageLayout />}>
             <Route path="/balance-scale" element={<BalanceScalePage />} />
             <Route path="" element={<SmartHighlightingSearchPage />} />
+            <Route path="/react-hook-demo" element={<ReactHooksDemoPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

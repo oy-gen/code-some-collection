@@ -7,11 +7,12 @@ import {
 import { Weight } from "./weight.tsx";
 import { findHeavierScalePanRule } from "../../business/rules/find-heavier-scale-pan-rule.ts";
 
-type ScalePanContentProps = {
+interface Props {
   isLeftSide: boolean;
   onError?: (message: string) => void;
-};
-export const ScalePanContent: React.FC<ScalePanContentProps> = ({
+}
+
+export const ScalePanContent: React.FC<Props> = ({
   isLeftSide,
   onError = () => {},
 }) => {

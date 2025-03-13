@@ -11,6 +11,9 @@ export const Navigation: React.FC = () => {
       <li>
         <NavLink to="/balance-scale">BalanceScalePage</NavLink>
       </li>
+        <li>
+        <NavLink to="/react-hook-demo">ReactHooksDemoPage</NavLink>
+      </li>
     </NavList>
   );
 };

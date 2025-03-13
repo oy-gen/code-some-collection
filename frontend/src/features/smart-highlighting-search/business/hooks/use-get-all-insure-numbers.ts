@@ -3,19 +3,16 @@ import {
   selectSmartHighlightingSearch,
   useStore,
 } from "../../../../shared/store/use-store.ts";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
-export const useGetAllInsureNumbers = (): void => {
+export default function useGetAllInsureNumbers(): string[] {
   const { insureNumbers, setInsureNumbersToStore } = useStore(
     selectSmartHighlightingSearch,
   );
   useEffect(() => {
     if (insureNumbers.length === 0) {
-      const fetchData = async () => {
-        const data = await getAllInsureNumbersFromDb();
-        setInsureNumbersToStore(data);
-      };
-      fetchData();
+      getAllInsureNumbersFromDb().then((data) => setInsureNumbersToStore(data));
     }
   }, [insureNumbers, setInsureNumbersToStore]);
-};
+  return useMemo(() => insureNumbers, [insureNumbers]);
+}
